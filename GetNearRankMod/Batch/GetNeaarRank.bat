@@ -1,0 +1,1 @@
+﻿powershell -NoProfile -ExecutionPolicy Unrestricted .\Libs\GetNearRank-master\GetNearRank.ps1
