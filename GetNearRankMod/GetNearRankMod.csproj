@@ -121,7 +121,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Managers\ExecuteBatch.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
-    <Compile Include="Override\ChangeRankRange.cs" />
+    <Compile Include="Override\ChangeSettings.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

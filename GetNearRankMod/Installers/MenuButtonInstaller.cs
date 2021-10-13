@@ -8,7 +8,7 @@ namespace GetNearRankMod.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<ChangeRankRange>().AsSingle();
+            Container.Bind<ChangeSettings>().AsSingle();
             Container.Bind<ExecuteBatch>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();

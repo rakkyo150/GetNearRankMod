@@ -10,5 +10,12 @@ namespace GetNearRankMod
             get => PluginConfig.Instance.RankRange;
             set => PluginConfig.Instance.RankRange = value;
         }
+
+        [UIValue("PPFilter")]
+        public int PPFilter
+        {
+            get => PluginConfig.Instance.PPFilter;
+            set => PluginConfig.Instance.PPFilter=value;
+        }
     }
 }

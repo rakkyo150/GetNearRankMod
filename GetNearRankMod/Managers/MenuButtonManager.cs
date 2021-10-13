@@ -8,11 +8,11 @@ namespace GetNearRankMod.Managers
     internal class MenuButtonManager : IInitializable, IDisposable
     {
         internal readonly MenuButton _menuButton;
-        private readonly ChangeRankRange _changeRankRange;
+        private readonly ChangeSettings _changeRankRange;
         private readonly ExecuteBatch _executeBatch;
 
 
-        public MenuButtonManager(ChangeRankRange changeRankRange, ExecuteBatch executeBatch)
+        public MenuButtonManager(ChangeSettings changeRankRange, ExecuteBatch executeBatch)
         {
             Logger.log.Debug("test");
             _menuButton = new MenuButton("Near Rank Playlist", "Generate Near Rank Playlist", GeneratePlaylist, true);
@@ -36,7 +36,7 @@ namespace GetNearRankMod.Managers
 
         public void GeneratePlaylist()
         {
-            _changeRankRange.OverrideRange();
+            _changeRankRange.OverrideSettings();
             _executeBatch.ExecuteScrapeBatch();
         }
     }

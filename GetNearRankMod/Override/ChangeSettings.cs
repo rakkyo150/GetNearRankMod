@@ -3,13 +3,13 @@ using System.Text;
 
 namespace GetNearRankMod.Override
 {
-    internal class ChangeRankRange
+    internal class ChangeSettings
     {
         string _PsPath = $".\\Libs\\GetNearRank-master\\GetNearRank.ps1";
         string s;
         string line;
 
-        internal void OverrideRange()
+        internal void OverrideSettings()
         {
             Logger.log.Debug("Start override rank range");
             
@@ -20,6 +20,10 @@ namespace GetNearRankMod.Override
                 if (s.Contains("$GET_RANK_RANGE ="))
                 {
                     s = $"$GET_RANK_RANGE ={PluginConfig.Instance.RankRange}";
+                }
+                if(s.Contains("$PP_FILTER      ="))
+                {
+                    s = $"$PP_FILTER      ={PluginConfig.Instance.PPFilter}";
                 }
                 line += s+"\n";
             }
