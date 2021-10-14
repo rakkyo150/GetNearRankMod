@@ -8,7 +8,7 @@ namespace GetNearRankMod.Managers
     {
         public string _fileName { get; set; } = "NearRank";
 
-        private readonly string _batchPath = $".\\Libs\\GetNearRank-master\\GetNearRank.bat";
+        private readonly string _batchPath = $".\\Libs\\GetNearRank-master\\GetNearRankMod.bat";
         private readonly string _firstPlaylistPath = $".\\playlist.bplist";
         internal readonly string _beatSaberPlaylistPath = $".\\Playlists\\NearRank.bplist";
 
