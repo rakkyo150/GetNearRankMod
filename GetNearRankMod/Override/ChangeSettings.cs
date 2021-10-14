@@ -1,6 +1,4 @@
 ﻿using System.IO;
-using System.Threading.Tasks;
-using System.Text;
 
 namespace GetNearRankMod.Override
 {
@@ -13,7 +11,7 @@ namespace GetNearRankMod.Override
         internal void OverrideSettings()
         {
             Logger.log.Debug("Start override rank range");
-            
+
             StreamReader sr = new StreamReader(_PsPath);
             while (sr.Peek() >= 0)
             {
@@ -22,15 +20,15 @@ namespace GetNearRankMod.Override
                 {
                     s = $"$GET_RANK_RANGE ={PluginConfig.Instance.RankRange}";
                 }
-                if(s.Contains("$PP_FILTER      ="))
+                if (s.Contains("$PP_FILTER      ="))
                 {
                     s = $"$PP_FILTER      ={PluginConfig.Instance.PPFilter}";
                 }
-                line += s+"\n";
+                line += s + "\n";
             }
             sr.Close();
 
-            StreamWriter wr = new StreamWriter(_PsPath,false);
+            StreamWriter wr = new StreamWriter(_PsPath, false);
             wr.WriteLine(line);
             wr.Close();
 

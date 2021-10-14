@@ -1,5 +1,5 @@
 ﻿namespace GetNearRankMod
-{ 
+{
     public class PluginConfig
     {
         public static PluginConfig Instance { get; set; }

@@ -22,7 +22,7 @@ namespace GetNearRankMod
         public void Init(IPALogger logger, Config cfgProvider, Zenjector injector)
         {
             Instance = this;
-        　　Logger.log = logger;
+            Logger.log = logger;
             PluginConfig.Instance = cfgProvider.Generated<PluginConfig>();
             BSMLSettings.instance.AddSettingsMenu("GetNearRankMod", $"GetNearRankMod.Settings.bsml", SettingController.instance);
             injector.OnMenu<Installers.MenuButtonInstaller>();

@@ -1,17 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Newtonsoft.Json;
+﻿using System.IO;
 using GetNearRankMod.Managers;
-using System.IO;
+using Newtonsoft.Json;
 
 namespace GetNearRankMod.Override
 {
     internal class ChangePlaylistTitleAndImage
     {
-        ExecuteBatch _executeBatch;        
+        ExecuteBatch _executeBatch;
 
         ChangePlaylistTitleAndImage(ExecuteBatch executeBatch)
         {
@@ -25,7 +20,7 @@ namespace GetNearRankMod.Override
             dynamic json = JsonConvert.DeserializeObject(sr.ReadToEnd());
             sr.Close();
             json["playlistTitle"] = _executeBatch._fileName;
-            string js = JsonConvert.SerializeObject(json,Formatting.Indented);
+            string js = JsonConvert.SerializeObject(json, Formatting.Indented);
             StreamWriter sw = new StreamWriter(_executeBatch._beatSaberPlaylistPath, false);
             sw.WriteLine(js);
             sw.Close();

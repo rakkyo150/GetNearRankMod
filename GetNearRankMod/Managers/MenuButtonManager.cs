@@ -1,8 +1,8 @@
 ﻿using System;
+using System.Threading.Tasks;
 using BeatSaberMarkupLanguage.MenuButtons;
 using GetNearRankMod.Override;
 using Zenject;
-using System.Threading.Tasks;
 
 namespace GetNearRankMod.Managers
 {
@@ -15,7 +15,7 @@ namespace GetNearRankMod.Managers
         private readonly ChangePlaylistTitleAndImage _changePlaylistTitleAndImage;
 
 
-        public MenuButtonManager(ChangeSettings changeRankRange, ExecuteBatch executeBatch,ChangePlaylistTitleAndImage changePlaylistTitleAndImage)
+        public MenuButtonManager(ChangeSettings changeRankRange, ExecuteBatch executeBatch, ChangePlaylistTitleAndImage changePlaylistTitleAndImage)
         {
             Logger.log.Debug("test");
             _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", GeneratePlaylist, true);
