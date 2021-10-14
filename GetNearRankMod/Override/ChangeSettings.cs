@@ -12,27 +12,34 @@ namespace GetNearRankMod.Override
         {
             Logger.log.Debug("Start override rank range");
 
-            StreamReader sr = new StreamReader(_PsPath);
-            while (sr.Peek() >= 0)
+            if (File.Exists(_PsPath))
             {
-                s = sr.ReadLine();
-                if (s.Contains("$GET_RANK_RANGE ="))
+                StreamReader sr = new StreamReader(_PsPath);
+                while (sr.Peek() >= 0)
                 {
-                    s = $"$GET_RANK_RANGE ={PluginConfig.Instance.RankRange}";
+                    s = sr.ReadLine();
+                    if (s.Contains("$GET_RANK_RANGE ="))
+                    {
+                        s = $"$GET_RANK_RANGE ={PluginConfig.Instance.RankRange}";
+                    }
+                    if (s.Contains("$PP_FILTER      ="))
+                    {
+                        s = $"$PP_FILTER      ={PluginConfig.Instance.PPFilter}";
+                    }
+                    line += s + "\n";
                 }
-                if (s.Contains("$PP_FILTER      ="))
-                {
-                    s = $"$PP_FILTER      ={PluginConfig.Instance.PPFilter}";
-                }
-                line += s + "\n";
+                sr.Close();
+
+                StreamWriter wr = new StreamWriter(_PsPath, false);
+                wr.WriteLine(line);
+                wr.Close();
+
+                Logger.log.Debug("Finish override rank range");
             }
-            sr.Close();
-
-            StreamWriter wr = new StreamWriter(_PsPath, false);
-            wr.WriteLine(line);
-            wr.Close();
-
-            Logger.log.Debug("Finish override rank range");
+            else
+            {
+                Logger.log.Critical($@"{ _PsPath} does not exist");
+            }
         }
     }
 }
