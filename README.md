@@ -25,8 +25,8 @@ $GET_RANK_RANGEと$PP_FILTERはゲーム内のMod Settings->GetNearRankModやBea
 3. 確認<br>
 ![スクリーンショット 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
 
-いつまでたってもプレイリストが生成されない場合は、導入方法か初期設定でつまずいている可能性があります。
-ビートセイバーを一度終了して、もういちど確認してみてください。
+いつまでたってもプレイリストが生成されない場合は、導入方法か初期設定でつまずいている可能性があります。<br>
+ビートセイバーを一度終了して、もういちど確認してみてください。<br>
 ちなみに、csv.txtはビートセイバーのフォルダに生成されます。<br>
 
 なお、デスクトップでGetNearRankを使用したい場合はGetNearRankMod.batの方ではなくオリジナルのGetNearRank.batを実行してください。<br>
