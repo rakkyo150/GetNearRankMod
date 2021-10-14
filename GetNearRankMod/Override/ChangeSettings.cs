@@ -5,11 +5,11 @@ namespace GetNearRankMod.Override
     internal class ChangeSettings
     {
         string _PsPath = $".\\Libs\\GetNearRank-master\\GetNearRank.ps1";
-        string s;
-        string line;
 
         internal void OverrideSettings()
         {
+            string line = "";
+
             Logger.log.Debug("Start override rank range");
 
             if (File.Exists(_PsPath))
@@ -17,7 +17,7 @@ namespace GetNearRankMod.Override
                 StreamReader sr = new StreamReader(_PsPath);
                 while (sr.Peek() >= 0)
                 {
-                    s = sr.ReadLine();
+                    string s = sr.ReadLine();
                     if (s.Contains("$GET_RANK_RANGE ="))
                     {
                         s = $"$GET_RANK_RANGE ={PluginConfig.Instance.RankRange}";
@@ -29,7 +29,7 @@ namespace GetNearRankMod.Override
                     line += s + "\n";
                 }
                 sr.Close();
-
+                
                 StreamWriter wr = new StreamWriter(_PsPath, false);
                 wr.WriteLine(line);
                 wr.Close();
