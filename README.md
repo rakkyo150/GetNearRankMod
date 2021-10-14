@@ -5,9 +5,12 @@
 
 # 導入方法
 前提として[GetNearRank](https://github.com/culage/GetNearRank)が動作する環境が必要です。<br>
-[GetNearRank](https://github.com/culage/GetNearRank)をCode->Download ZIPでダウンロードしてください。<br>
-ダウンロードしたzipファイルを解凍して、GetNearRank-master以下に少なくともGetNearRank.ps1が存在する形にしてください。<br>
-GetNearRank-masterはBeat Saber/Libsにいれて、GetNearRank-master内にreleaseからダウンロードしたGetNearRankMod.batをいれてください。<br>
+**[GetNearRank](https://github.com/culage/GetNearRank)をCode->Download ZIPでダウンロードしてください。**<br>
+**本MODをダウンロードしただけでは正常に動作しない**ので注意してください。<br>
+GetNearRank-master/GetNearRank.ps1などのファイルという構造でダウンロードしたzipファイルを解凍してください<br>
+GetNearRank-master内にreleaseからダウンロードしたGetNearRankMod.batをいれて、GetNearRank-masterはをBeat Saber/Libsにいれてください。<br>
+
+最終的なファイルの構造として、Beat Saber/Libs/GetNearRank-masterフォルダ内に少なくともGetNearRankMod.batとGetNearRank.ps1のふたつが存在していればオッケーです。
 
 # 初期設定
 GetNearRank.ps1の$MY_URLと$RANK_GET_PAGESはGetNearRank.ps1から直接書き換えてください。<br>
@@ -25,6 +28,8 @@ $GET_RANK_RANGEと$PP_FILTERはゲーム内のMod Settings->GetNearRankModやBea
 3. 確認<br>
 ![スクリーンショット 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
 
+いつまでたってもプレイリストが生成されない場合は、導入方法か初期設定でつまずいている可能性があります。<br>
+ビートセイバーを一度終了して、もういちど確認してみてください。<br>
 ちなみに、csv.txtはビートセイバーのフォルダに生成されます。<br>
 
 なお、デスクトップでGetNearRankを使用したい場合はGetNearRankMod.batの方ではなくオリジナルのGetNearRank.batを実行してください。<br>
