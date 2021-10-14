@@ -1,4 +1,4 @@
 ﻿<settings-container>
-  <increment-setting text='Rank Range' value='RankRange' increment='1' min='1' intenger-only='true'></increment-setting>
-  <increment-setting text='PP Filter' value='PPFilter' increment='1' min='1' intenger-only='true'></increment-setting>
+  <increment-setting text='Rank Range' value='RankRange' increment='1' min='1' intenger-only='true' apply-on-change='true'></increment-setting>
+  <increment-setting text='PP Filter' value='PPFilter' increment='1' min='1' intenger-only='true' apply-on-change='true'></increment-setting>
 </settings-container>

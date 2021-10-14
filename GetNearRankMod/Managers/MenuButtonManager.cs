@@ -2,22 +2,26 @@
 using BeatSaberMarkupLanguage.MenuButtons;
 using GetNearRankMod.Override;
 using Zenject;
+using System.Threading.Tasks;
 
 namespace GetNearRankMod.Managers
 {
     internal class MenuButtonManager : IInitializable, IDisposable
     {
+        private readonly string _buttonName = "Near Rank Playlist";
         internal readonly MenuButton _menuButton;
         private readonly ChangeSettings _changeRankRange;
         private readonly ExecuteBatch _executeBatch;
+        private readonly ChangePlaylistTitleAndImage _changePlaylistTitleAndImage;
 
 
-        public MenuButtonManager(ChangeSettings changeRankRange, ExecuteBatch executeBatch)
+        public MenuButtonManager(ChangeSettings changeRankRange, ExecuteBatch executeBatch,ChangePlaylistTitleAndImage changePlaylistTitleAndImage)
         {
             Logger.log.Debug("test");
-            _menuButton = new MenuButton("Near Rank Playlist", "Generate Near Rank Playlist", GeneratePlaylist, true);
+            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", GeneratePlaylist, true);
             _changeRankRange = changeRankRange;
             _executeBatch = executeBatch;
+            _changePlaylistTitleAndImage = changePlaylistTitleAndImage;
         }
 
         public void Initialize()
@@ -34,10 +38,16 @@ namespace GetNearRankMod.Managers
             }
         }
 
-        public void GeneratePlaylist()
+        public async void GeneratePlaylist()
         {
-            _changeRankRange.OverrideSettings();
-            _executeBatch.ExecuteScrapeBatch();
+            _menuButton.Text = "Generating...";
+            await Task.Run(_changeRankRange.OverrideSettings);
+            await Task.Run(_executeBatch.ExecuteScrapeBatch);
+            _changePlaylistTitleAndImage.AdjustPlaylist();
+            SongCore.Loader.Instance.RefreshSongs(false);
+            _menuButton.Text = "Finish!";
+            await Task.Delay(3000);
+            _menuButton.Text = _buttonName;
         }
     }
 }

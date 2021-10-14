@@ -1,4 +1,5 @@
 ﻿using System.IO;
+using System.Threading.Tasks;
 using System.Text;
 
 namespace GetNearRankMod.Override
@@ -29,7 +30,7 @@ namespace GetNearRankMod.Override
             }
             sr.Close();
 
-            StreamWriter wr = new StreamWriter(_PsPath);
+            StreamWriter wr = new StreamWriter(_PsPath,false);
             wr.WriteLine(line);
             wr.Close();
 

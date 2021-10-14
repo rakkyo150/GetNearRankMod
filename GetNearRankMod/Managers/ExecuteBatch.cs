@@ -6,11 +6,11 @@ namespace GetNearRankMod.Managers
 {
     internal class ExecuteBatch
     {
-        string _fileName = "NearRank";
+        public string _fileName { get; set; } = "NearRank";
 
-        string _batchPath = $".\\Libs\\GetNearRank-master\\GetNearRank.bat";
-        string _firstPlaylistPath = $".\\playlist.bplist";
-        string _beatSaberPlaylistPath = $".\\Playlists\\NearRank.bplist";
+        private readonly string _batchPath = $".\\Libs\\GetNearRank-master\\GetNearRank.bat";
+        private readonly string _firstPlaylistPath = $".\\playlist.bplist";
+        internal readonly string _beatSaberPlaylistPath = $".\\Playlists\\NearRank.bplist";
 
         ExecuteBatch()
         {
@@ -21,7 +21,7 @@ namespace GetNearRankMod.Managers
         }
 
         public void ExecuteScrapeBatch()
-        {
+        {           
             Process p = new Process();
             p.StartInfo.FileName = _batchPath;
             p.StartInfo.UseShellExecute = false;
@@ -31,8 +31,11 @@ namespace GetNearRankMod.Managers
             p.WaitForExit();
             p.Close();
 
+            if (File.Exists(_beatSaberPlaylistPath))
+            {
+                File.Delete(_beatSaberPlaylistPath);
+            }
             File.Move(_firstPlaylistPath, _beatSaberPlaylistPath);
-            SongCore.Loader.Instance.RefreshSongs(false);
 
             Logger.log.Debug("Finish Generating Playlist");
         }

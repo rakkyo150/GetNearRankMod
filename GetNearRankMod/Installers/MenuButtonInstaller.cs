@@ -10,6 +10,7 @@ namespace GetNearRankMod.Installers
         {
             Container.Bind<ChangeSettings>().AsSingle();
             Container.Bind<ExecuteBatch>().AsSingle();
+            Container.Bind<ChangePlaylistTitleAndImage>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();
         }
