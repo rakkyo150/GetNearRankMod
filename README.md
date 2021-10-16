@@ -7,8 +7,8 @@
 前提として[GetNearRank](https://github.com/culage/GetNearRank)が動作する環境が必要です。<br>
 **[GetNearRank](https://github.com/culage/GetNearRank)をCode->Download ZIPでダウンロードしてください。**<br>
 **本MODをダウンロードしただけでは正常に動作しない**ので注意してください。<br>
-GetNearRank-master/GetNearRank.ps1などのファイルという構造でダウンロードしたzipファイルを解凍してください<br>
-GetNearRank-master内にreleaseからダウンロードしたGetNearRankMod.batをいれて、GetNearRank-masterはをBeat Saber/Libsにいれてください。<br>
+GetNearRank-master/GetNearRank.ps1などのファイルという構造でダウンロードしたzipファイルを解凍してください。<br>
+GetNearRank-master内に[Releases](https://github.com/rakkyo150/GetNearRankMod/releases)からダウンロードしたGetNearRankMod.batをいれて、GetNearRank-masterはBeat Saber/Libsにいれてください。<br>
 
 最終的なファイルの構造として、Beat Saber/Libs/GetNearRank-masterフォルダ内に少なくともGetNearRankMod.batとGetNearRank.ps1のふたつが存在していればオッケーです。
 
