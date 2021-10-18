@@ -1,5 +1,5 @@
 ﻿using GetNearRankMod.Managers;
-using GetNearRankMod.Override;
+using GetNearRankMod.Utilities;
 using Zenject;
 
 namespace GetNearRankMod.Installers
@@ -8,9 +8,8 @@ namespace GetNearRankMod.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<ChangeSettings>().AsSingle();
-            Container.Bind<ExecuteBatch>().AsSingle();
-            Container.Bind<ChangePlaylistTitleAndImage>().AsSingle();
+            Container.Bind<GetUsersData>().AsSingle();
+            Container.Bind<PlaylistMaker>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();
         }
