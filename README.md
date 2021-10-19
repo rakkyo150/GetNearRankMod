@@ -1,36 +1,41 @@
 # GetNearRankMod
 
-[GetNearRank](https://github.com/culage/GetNearRank)ã‚’ãƒ“ãƒ¼ãƒˆã‚»ã‚¤ãƒãƒ¼ã®ã‚²ãƒ¼ãƒ å†…ã‹ã‚‰ã§ã‚‚ä½¿ãˆã‚‹ã‚ˆã†ã«ã—ãŸMODã§ã™ã€‚<br>
-ãã‚Œã«ä¼´ã£ã¦ã€ã‚²ãƒ¼ãƒ å†…ã§è¦‹ãŸã¨ãã®Playlistã®åå‰ã‚’å°‘ã—ã‚ã‹ã‚Šã‚„ã™ãã‚‚ã—ã¾ã—ãŸã€‚
+[GetNearRank](https://github.com/culage/GetNearRank)‚ğQl‚É‚µ‚½A‡ˆÊ‚ª‹ß‚­‚Ìl‚ª©•ª‚æ‚èPP‚ğ‘½‚­æ‚Á‚½ƒ‰ƒ“ƒN‹È‚ğæ“¾‚µ‚ÄƒvƒŒƒCƒŠƒXƒg‚É‚·‚éMOD‚Å‚·B<br>
+Œ»óA“ú–{ƒ[ƒJƒ‹ƒ‰ƒ“ƒNŠî€‚Å‚µ‚©³í‚É“®ì‚µ‚Ü‚¹‚ñB<br>
+—v–]‚È‚Ç‚ª‚ ‚ê‚ÎAƒ[ƒ‹ƒhƒ‰ƒ“ƒNŠî€‚â‘¼ƒ[ƒJƒ‹ƒ‰ƒ“ƒNŠî€‚Å‚à“®ì‚·‚é‚æ‚¤‚É‚·‚é‚©‚à‚µ‚ê‚Ü‚¹‚ñB
 
-# å°å…¥æ–¹æ³•
-å‰æã¨ã—ã¦[GetNearRank](https://github.com/culage/GetNearRank)ãŒå‹•ä½œã™ã‚‹ç’°å¢ƒãŒå¿…è¦ã§ã™ã€‚<br>
-**[GetNearRank](https://github.com/culage/GetNearRank)ã‚’Code->Download ZIPã§ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ã¦ãã ã•ã„ã€‚**<br>
-**æœ¬MODã‚’ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸã ã‘ã§ã¯æ­£å¸¸ã«å‹•ä½œã—ãªã„**ã®ã§æ³¨æ„ã—ã¦ãã ã•ã„ã€‚<br>
-GetNearRank-master/GetNearRank.ps1ãªã©ã®ãƒ•ã‚¡ã‚¤ãƒ«ã¨ã„ã†æ§‹é€ ã§ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸzipãƒ•ã‚¡ã‚¤ãƒ«ã‚’è§£å‡ã—ã¦ãã ã•ã„ã€‚<br>
-GetNearRank-masterå†…ã«[Releases](https://github.com/rakkyo150/GetNearRankMod/releases)ã‹ã‚‰ãƒ€ã‚¦ãƒ³ãƒ­ãƒ¼ãƒ‰ã—ãŸGetNearRankMod.batã‚’ã„ã‚Œã¦ã€GetNearRank-masterã¯Beat Saber/Libsã«ã„ã‚Œã¦ãã ã•ã„ã€‚<br>
+# ‰Šúİ’è
+MOD“±“üŒãAˆê“xBeat Saber‚ğ‹N“®‚µ‚ÄBeat Saber/UserData/GetNearRankMod.json‚ğì¬‚µ‚Ä‚­‚¾‚³‚¢B<br>
+‚»‚ÌŒãAGetNearRankMod.json‚ğƒƒ‚’ ‚È‚Ç‚ÅŠJ‚«AYourId‚ğ©•ª‚ÌScoreSaber‚ÌID‚É‘‚«Š·‚¦‚Ä‚­‚¾‚³‚¢B<br>
+‚±‚±‚Å‚ÌID‚Æ‚ÍA©•ª‚ÌScoreSaber‚Ìƒy[ƒW‚ÌURL‚Ìhttps://scoresaber.com/u/?????????????????‚Ì?•”•ª‚Å‚·B<br>
 
-æœ€çµ‚çš„ãªãƒ•ã‚¡ã‚¤ãƒ«ã®æ§‹é€ ã¨ã—ã¦ã€Beat Saber/Libs/GetNearRank-masterãƒ•ã‚©ãƒ«ãƒ€å†…ã«å°‘ãªãã¨ã‚‚GetNearRankMod.batã¨GetNearRank.ps1ã®ãµãŸã¤ãŒå­˜åœ¨ã—ã¦ã„ã‚Œã°ã‚ªãƒƒã‚±ãƒ¼ã§ã™ã€‚
+—áFhttps://scoresaber.com/u/76561198333869741 ‚Ìê‡Au76561198333869741v‚É‘‚«Š·‚¦‚Ä‚­‚¾‚³‚¢<br>
 
-# åˆæœŸè¨­å®š
-GetNearRank.ps1ã®$MY_URLã¨$RANK_GET_PAGESã¯GetNearRank.ps1ã‹ã‚‰ç›´æ¥æ›¸ãæ›ãˆã¦ãã ã•ã„ã€‚<br>
-$GET_RANK_RANGEã¨$PP_FILTERã¯ã‚²ãƒ¼ãƒ å†…ã®Mod Settings->GetNearRankModã‚„Beat Saber/UserData/GetNearRankMod.jsonã‹ã‚‰å¤‰æ›´ã™ã‚‹ã“ã¨ãŒã§ãã¾ã™ã€‚<br>
+Ÿ‚ÉAYourLocalRankPageNumber‚É©•ª‚ª“ú–{‰½ƒy[ƒW–Ú‚É‚¢‚é‚©‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B<br>
+“ú–{‚Pƒy[ƒW–Ú‚Ìl‚Íu1vA“ú–{‚Qƒy[ƒW–Ú‚Ìl‚Íu2v‚Æ‚¢‚¤‚æ‚¤‚É‘‚«Š·‚¦‚Ä‰º‚³‚¢B<br>
 
-# ä½¿ç”¨æ–¹æ³•
-ãƒ“ãƒ¼ãƒˆã‚»ã‚¤ãƒãƒ¼ã®ãƒ›ãƒ¼ãƒ ç”»é¢å·¦ã«ã‚ã‚‹GENERATE NEAR RANK PLAYLISTã‚’æŠ¼ã™ã ã‘ã§ã™ã€‚<br>
+ÅŒã‚ÉAGetNearRankMod.json‚ğã‘‚«•Û‘¶‚µ‚Ä‰Šúİ’è‚ÍI—¹‚Å‚·B
 
-1. æŠ¼ã™<br>
-![ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆ 2021-10-15 022423](https://user-images.githubusercontent.com/86054813/137366553-a565529a-0d47-4335-a632-029e226efcd6.png)
+# g—p•û–@
+ƒr[ƒgƒZƒCƒo[‚Ìƒz[ƒ€‰æ–Ê¶‚É‚ ‚éGENERATE NEAR RANK PLAYLIST‚ğ‰Ÿ‚·‚¾‚¯‚Å‚·B<br>
 
-2. å¾…ã¤(ãƒ¡ãƒ‹ãƒ¥ãƒ¼ç”»é¢ã‹ã‚‰ç§»å‹•ã—ã¦ã‚‚æ§‹ã„ã¾ã›ã‚“)<br>
-![ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆ 2021-10-15 022232](https://user-images.githubusercontent.com/86054813/137366693-0ab5dbcf-9149-4274-a504-505fa87d4c66.png)
+1. ‰Ÿ‚·<br>
+![ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg 2021-10-15 022423](https://user-images.githubusercontent.com/86054813/137366553-a565529a-0d47-4335-a632-029e226efcd6.png)
 
-3. ç¢ºèª<br>
-![ã‚¹ã‚¯ãƒªãƒ¼ãƒ³ã‚·ãƒ§ãƒƒãƒˆ 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
+2. ‘Ò‚Â(ƒƒjƒ…[‰æ–Ê‚©‚çˆÚ“®‚µ‚Ä‚à\‚¢‚Ü‚¹‚ñ)<br>
+![ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg 2021-10-15 022232](https://user-images.githubusercontent.com/86054813/137366693-0ab5dbcf-9149-4274-a504-505fa87d4c66.png)
 
-ã„ã¤ã¾ã§ãŸã£ã¦ã‚‚ãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆãŒç”Ÿæˆã•ã‚Œãªã„å ´åˆã¯ã€å°å…¥æ–¹æ³•ã‹åˆæœŸè¨­å®šã§ã¤ã¾ãšã„ã¦ã„ã‚‹å¯èƒ½æ€§ãŒã‚ã‚Šã¾ã™ã€‚<br>
-ãƒ“ãƒ¼ãƒˆã‚»ã‚¤ãƒãƒ¼ã‚’ä¸€åº¦çµ‚äº†ã—ã¦ã€ã‚‚ã†ã„ã¡ã©ç¢ºèªã—ã¦ã¿ã¦ãã ã•ã„ã€‚<br>
-ã¡ãªã¿ã«ã€csv.txtã¯ãƒ“ãƒ¼ãƒˆã‚»ã‚¤ãƒãƒ¼ã®ãƒ•ã‚©ãƒ«ãƒ€ã«ç”Ÿæˆã•ã‚Œã¾ã™ã€‚<br>
+3. Šm”F<br>
+![ƒXƒNƒŠ[ƒ“ƒVƒ‡ƒbƒg 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
 
-ãªãŠã€ãƒ‡ã‚¹ã‚¯ãƒˆãƒƒãƒ—ã§GetNearRankã‚’ä½¿ç”¨ã—ãŸã„å ´åˆã¯GetNearRankMod.batã®æ–¹ã§ã¯ãªãã‚ªãƒªã‚¸ãƒŠãƒ«ã®GetNearRank.batã‚’å®Ÿè¡Œã—ã¦ãã ã•ã„ã€‚<br>
-ãã®éš›ã€ãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆã¯GetNearRank-masterå†…ã«ä½œæˆã•ã‚Œã‚‹ã®ã§ã€ä½œæˆã•ã‚ŒãŸãƒ—ãƒ¬ã‚¤ãƒªã‚¹ãƒˆã¯ã”è‡ªèº«ã§Beat Saber/Playlistsã«ç§»å‹•ã—ã¦ãã ã•ã„ã€‚
+‚¢‚Â‚Ü‚Å‚½‚Á‚Ä‚àƒvƒŒƒCƒŠƒXƒg‚ª¶¬‚³‚ê‚È‚¢ê‡‚ÍA‰Šúİ’è‚Å‚Â‚Ü‚¸‚¢‚Ä‚¢‚é‰Â”\«‚ª‚ ‚è‚Ü‚·B<br>
+‚à‚¤ˆê“xŠm”F‚µ‚Ä‚İ‚Ä‚­‚¾‚³‚¢B<br>
+
+# ”CˆÓİ’è
+Beat Saber‚ÌƒQ[ƒ€“àƒz[ƒ€‰æ–Ê‚Ì‰º‚Ì•Ô¨MOD SETTINGS¨GetNearRankMod‚©‚çİ’è‚ğ•ÏX‚Å‚«‚Ü‚·B<br>
+|€–Ú|à–¾|
+|`YourLocalRankPageNumber`|“ú–{‰½ƒy[ƒW–Ú‚É‚¢‚é‚©|
+|`RankRange`|©•ª‚Ì‘OŒã‰½ˆÊ‚Ìl‚ğ‘ÎÛ‚Æ‚·‚é‚©|
+|`PPFilter`|‰½PP·‚ğ‘ÎÛ‚Æ‚·‚é‚©|
+|`YourPageRange`|©•ª‚ÌƒgƒbƒvƒXƒRƒA‰½ƒy[ƒW–Ú‚Ü‚Å‚Ìî•ñ‚ğæ“¾‚·‚é‚©|
+|`OthersPageRange`|ƒ‰ƒCƒoƒ‹‚ÌƒgƒbƒvƒXƒRƒA‰½ƒy[ƒW–Ú‚Ü‚Å‚Ìî•ñ‚ğæ“¾‚·‚é‚©|
