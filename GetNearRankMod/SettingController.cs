@@ -34,7 +34,7 @@ namespace GetNearRankMod
         public int OthersPageRange
         {
             get => PluginConfig.Instance.OthersPageRange;
-            set=>PluginConfig.Instance.OthersPageRange = value;
+            set => PluginConfig.Instance.OthersPageRange = value;
         }
     }
 }

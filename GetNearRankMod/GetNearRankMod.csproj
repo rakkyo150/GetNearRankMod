@@ -166,7 +166,6 @@
     <EmbeddedResource Include="manifest.json" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Batch\GetNearRankMod.bat" />
     <None Include="Directory.Build.props" Condition="Exists('Directory.Build.props')" />
     <None Include="Directory.Build.targets" Condition="Exists('Directory.Build.targets')" />
     <None Include="GetNearRankMod.csproj.user" Condition="Exists('GetNearRankMod.csproj.user')" />
