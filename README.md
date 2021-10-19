@@ -5,6 +5,9 @@
 要望などがあれば、ワールドランク基準や他ローカルランク基準でも動作するようにするかもしれません。
 
 # 初期設定
+**初期設定は必須です。**<br>
+お手数ですがよろしくお願いします。
+
 MOD導入後、一度Beat Saberを起動してBeat Saber/UserData/GetNearRankMod.jsonを作成してください。<br>
 その後、GetNearRankMod.jsonをメモ帳などで開き、YourIdを自分のScoreSaberのIDに書き換えてください。<br>
 ここでのIDとは、自分のScoreSaberのページのURLのhttps://scoresaber.com/u/?????????????????の?部分です。<br>
@@ -36,7 +39,7 @@ Beat Saberのゲーム内ホーム画面の下の歯車→MOD SETTINGS→GetNear
 |項目|説明|
 |:---|:---|
 |`YourLocalRankPageNumber`|日本何ページ目にいるか|
-|`RankRange`|自分の前後何位の人を対象とするか|
+|`RankRange`|自分の前後何位の人を対象とするか(２ページまで情報取得可能)|
 |`PPFilter`|何PP差を対象とするか|
 |`YourPageRange`|自分のトップスコア何ページ目までの情報を取得するか|
 |`OthersPageRange`|ライバルのトップスコア何ページ目までの情報を取得するか|
