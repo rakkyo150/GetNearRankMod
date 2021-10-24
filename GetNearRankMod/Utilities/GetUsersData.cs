@@ -58,7 +58,7 @@ namespace GetNearRankMod.Utilities
             int branchRank = 0;
             HashSet<string> idHashSet = new HashSet<string>();
 
-            Logger.log.Debug("start GetLocalRankData");
+            Logger.log.Debug("Start GetLocalRankData");
 
             Dictionary<string, string> result = await GetLocalRankData(baseUrl);
             var pair = result.FirstOrDefault(c => c.Value == PluginConfig.Instance.YourId);

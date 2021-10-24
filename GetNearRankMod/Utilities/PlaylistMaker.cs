@@ -48,6 +48,7 @@ namespace GetNearRankMod.Utilities
                             if (!hashAndDifficultyList.Contains(keyDictionary))
                             {
                                 hashAndDifficultyList.Add(keyDictionary);
+                                Logger.log.Debug($"{keyDictionary.Item1},{keyDictionary.Item2},{double.Parse(otherPP) - double.Parse(yourPP)}PP");
                             }
                         }
                     }
@@ -56,6 +57,7 @@ namespace GetNearRankMod.Utilities
                         if (!hashAndDifficultyList.Contains(keyDictionary))
                         {
                             hashAndDifficultyList.Add(keyDictionary);
+                            Logger.log.Debug($"{keyDictionary.Item1},{keyDictionary.Item2}, MissingData");
                         }
                     }
                 }

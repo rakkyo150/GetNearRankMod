@@ -18,7 +18,6 @@ namespace GetNearRankMod.Managers
 
         public MenuButtonManager(GetUsersData getUsersData, PlaylistMaker playlistMaker)
         {
-            Logger.log.Debug("test");
             _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", GeneratePlaylist, true);
             _getUsersData = getUsersData;
             _playlistMaker = playlistMaker;
@@ -26,7 +25,6 @@ namespace GetNearRankMod.Managers
 
         public void Initialize()
         {
-            Logger.log.Debug("test2");
             MenuButtons.instance.RegisterButton(_menuButton);
         }
 
