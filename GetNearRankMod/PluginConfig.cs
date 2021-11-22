@@ -4,7 +4,6 @@
     {
         public static PluginConfig Instance { get; set; }
         public string YourId { get; set; } = "76561199070578780";
-        public int YourLocalRankPageNumber { get; set; } = 1;
         public int RankRange { get; set; } = 3;
         public int PPFilter { get; set; } = 20;
         public int YourPageRange { get; set; } = 10;

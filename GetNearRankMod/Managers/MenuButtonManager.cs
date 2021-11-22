@@ -40,7 +40,9 @@ namespace GetNearRankMod.Managers
 
             _menuButton.Text = "Generating...";
 
-            var targetedIdList = await _getUsersData.GetLocalTargetedId();
+            var myCountryRank = await _getUsersData.GetMyCountryRank();
+
+            var targetedIdList = await _getUsersData.GetLocalTargetedId(myCountryRank);
 
             var myPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
             foreach (string targetedId in targetedIdList)

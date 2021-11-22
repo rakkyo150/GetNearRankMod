@@ -9,44 +9,39 @@ namespace GetNearRankMod.Utilities
 {
     internal class GetUsersData
     {
-        string baseRank;
-
-        string basePageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber}&countries=jp";
-        string nextPageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber + 1}&countries=jp";
-        string previouPageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber - 1}&countries=jp";
-
         // 新API対応
 
-        public async Task<Dictionary<string, string>> GetCountryRankData(string endpoint)
+        public async Task<int> GetMyCountryRank()
         {
-            // Key=>rank Value=>id
-            var countryRankAndId = new Dictionary<string, string>();
+            int myCountryRank;
 
-            Logger.log.Debug("Start HttpClient");
+            string MyBasicPlayerDataEndpoint = $"https://scoresaber.com/api/player/{PluginConfig.Instance.YourId}/basic";
+
+            Logger.log.Debug("Start GetMyCountryRankPageNumber");
+
             HttpClient client = new HttpClient();
-            var response=await client.GetAsync(endpoint);
-            string jsonStr = await response.Content.ReadAsStringAsync();
+            var response = await client.GetAsync(MyBasicPlayerDataEndpoint);
+            string jsonString = await response.Content.ReadAsStringAsync();
 
-            dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonStr);
+            dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-            foreach (var jd in jsonDynamic)
-            {
-                string rank = JsonConvert.SerializeObject(jd["countryRank"]);
-                string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"","");
+            string myCountryRankStr = jsonDynamic["countryRank"];
+            myCountryRank = Int32.Parse(myCountryRankStr);
 
-                countryRankAndId.Add(rank, id);
-            }
+            Logger.log.Debug("Your Local Rank " + myCountryRank);
 
-            if (countryRankAndId == null)
-            {
-                Logger.log.Info($"No Country Rank and Id at {endpoint}");
-            }
+            return myCountryRank;
 
-            return countryRankAndId;
         }
-
-        public async Task<HashSet<string>> GetLocalTargetedId()
+        
+        public async Task<HashSet<string>> GetLocalTargetedId(int myCountryRank)
         {
+            int myCountryRankPageNumber = 1 + myCountryRank / 50;
+
+            string basePageEndpoint = $"https://scoresaber.com/api/players?page={myCountryRankPageNumber}&countries=jp";
+            string lowerRankPageEndpoint = $"https://scoresaber.com/api/players?page={myCountryRankPageNumber + 1}&countries=jp";
+            string higherRankPageEndpoint = $"https://scoresaber.com/api/players?page={myCountryRankPageNumber - 1}&countries=jp";
+
             int lowRank;
             int highRank;
             bool otherPage = false;
@@ -56,12 +51,9 @@ namespace GetNearRankMod.Utilities
             Logger.log.Debug("Start GetLocalRankData");
 
             Dictionary<string, string> result = await GetCountryRankData(basePageEndpoint);
-            var pair = result.FirstOrDefault(c => c.Value == PluginConfig.Instance.YourId);
-            baseRank = pair.Key;
-            Logger.log.Debug("Your Local Rank " + baseRank);
 
-            lowRank = Int32.Parse(baseRank) + PluginConfig.Instance.RankRange;
-            highRank = Int32.Parse(baseRank) - PluginConfig.Instance.RankRange;
+            lowRank = myCountryRank + PluginConfig.Instance.RankRange;
+            highRank = myCountryRank - PluginConfig.Instance.RankRange;
 
             // トッププレイヤー用
             if (highRank <= 0)
@@ -81,9 +73,9 @@ namespace GetNearRankMod.Utilities
 
             if (otherPage)
             {
-                if (Int32.Parse(baseRank) >= branchRank)
+                if (myCountryRank >= branchRank)
                 {
-                    Dictionary<string, string> resultSecond = await GetCountryRankData(nextPageEndpoint);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(lowerRankPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
@@ -91,7 +83,7 @@ namespace GetNearRankMod.Utilities
                 }
                 else
                 {
-                    Dictionary<string, string> resultSecond = await GetCountryRankData(nextPageEndpoint);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(higherRankPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
@@ -99,7 +91,7 @@ namespace GetNearRankMod.Utilities
                 }
             }
 
-            for (int i = 0; lowRank - i > Int32.Parse(baseRank); i++)
+            for (int i = 0; lowRank - i > myCountryRank; i++)
             {
                 idHashSet.Add(result[(lowRank - i).ToString()]);
                 idHashSet.Add(result[(highRank + i).ToString()]);
@@ -107,9 +99,9 @@ namespace GetNearRankMod.Utilities
 
 
             // トッププレイヤー用
-            if (idHashSet.Contains(result[baseRank]))
+            if (idHashSet.Contains(result[myCountryRank.ToString()]))
             {
-                idHashSet.Remove(result[baseRank]);
+                idHashSet.Remove(result[myCountryRank.ToString()]);
             }
 
             return idHashSet;
@@ -119,12 +111,12 @@ namespace GetNearRankMod.Utilities
         {
             // Key=>(songHash,difficulty),Value=>pp
 
-            int pageNumber = 1;
+            int topScoresPageNumber = 1;
             var playScores = new Dictionary<Tuple<string, string>, string>();
 
-            for (int i = 0; i + pageNumber <= pageRange; i++)
+            for (int i = 0; i + topScoresPageNumber <= pageRange; i++)
             {
-                string playerScoresEndpoint = $"https://scoresaber.com/api/player/{id}/scores?page={i + pageNumber}";
+                string playerScoresEndpoint = $"https://scoresaber.com/api/player/{id}/scores?page={i + topScoresPageNumber}";
 
                 HttpClient client = new HttpClient();
                 var response = await client.GetAsync(playerScoresEndpoint);
@@ -148,6 +140,33 @@ namespace GetNearRankMod.Utilities
             }
 
             return playScores;
+        }
+
+        public async Task<Dictionary<string, string>> GetCountryRankData(string endpoint)
+        {
+            // Key=>rank Value=>id
+            var countryRankAndId = new Dictionary<string, string>();
+
+            HttpClient client = new HttpClient();
+            var response = await client.GetAsync(endpoint);
+            string jsonStr = await response.Content.ReadAsStringAsync();
+
+            dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonStr);
+
+            foreach (var jd in jsonDynamic)
+            {
+                string rank = JsonConvert.SerializeObject(jd["countryRank"]);
+                string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"", "");
+
+                countryRankAndId.Add(rank, id);
+            }
+
+            if (countryRankAndId == null)
+            {
+                Logger.log.Info($"No Country Rank and Id at {endpoint}");
+            }
+
+            return countryRankAndId;
         }
     }
 }

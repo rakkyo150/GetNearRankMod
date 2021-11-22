@@ -4,13 +4,6 @@ namespace GetNearRankMod
 {
     public class SettingController : PersistentSingleton<SettingController>
     {
-        [UIValue("YourLocalRankPageNumber")]
-        public int YourLocalRankPageNumber
-        {
-            get => PluginConfig.Instance.YourLocalRankPageNumber;
-            set => PluginConfig.Instance.YourLocalRankPageNumber = value;
-        }
-
         [UIValue("RankRange")]
         public int RankRange
         {
