@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
-using AngleSharp.Html.Parser;
 using Newtonsoft.Json;
 
 namespace GetNearRankMod.Utilities
@@ -12,42 +11,38 @@ namespace GetNearRankMod.Utilities
     {
         string baseRank;
 
-        string baseUrl = $"https://scoresaber.com/global/{PluginConfig.Instance.YourLocalRankPageNumber}?country=jp";
-        string nextPageUrl = $"https://scoresaber.com/global/{PluginConfig.Instance.YourLocalRankPageNumber + 1}?country=jp";
-        string previouPageUrl = $"https://scoresaber.com/global/{PluginConfig.Instance.YourLocalRankPageNumber - 1}?country=jp";
+        string basePageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber}&countries=jp";
+        string nextPageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber + 1}&countries=jp";
+        string previouPageEndpoint = $"https://scoresaber.com/api/players?page={PluginConfig.Instance.YourLocalRankPageNumber - 1}&countries=jp";
 
-        // ローカルランクのAPIはないのでスクレイピング
+        // 新API対応
 
-        public async Task<Dictionary<string, string>> GetLocalRankData(string url)
+        public async Task<Dictionary<string, string>> GetCountryRankData(string endpoint)
         {
             // Key=>rank Value=>id
+            var countryRankAndId = new Dictionary<string, string>();
 
             Logger.log.Debug("Start HttpClient");
             HttpClient client = new HttpClient();
-            var stream = await client.GetStreamAsync(url);
+            var response=await client.GetAsync(endpoint);
+            string jsonStr = await response.Content.ReadAsStringAsync();
 
-            Logger.log.Debug("Start Parser");
-            var parser = new HtmlParser();
-            var doc = await parser.ParseDocumentAsync(stream);
-            var nodes = doc.QuerySelector("tbody");
+            dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonStr);
 
-            var rankAndId = new Dictionary<string, string>();
-            foreach (var tr in nodes.QuerySelectorAll("tr"))
+            foreach (var jd in jsonDynamic)
             {
-                string rank;
-                string id;
+                string rank = JsonConvert.SerializeObject(jd["countryRank"]);
+                string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"","");
 
-                var rankNodes = tr.GetElementsByClassName("rank");
-                rank = rankNodes[0].TextContent.Replace("#", "").Replace("	", "").Replace("\n", "");
-
-                var idNodes = tr.GetElementsByClassName("player");
-                id = idNodes[0].QuerySelector("a").GetAttribute("href")
-                    .Replace("/u/", "");
-
-                rankAndId.Add(rank, id);
+                countryRankAndId.Add(rank, id);
             }
 
-            return rankAndId;
+            if (countryRankAndId == null)
+            {
+                Logger.log.Info($"No Country Rank and Id at {endpoint}");
+            }
+
+            return countryRankAndId;
         }
 
         public async Task<HashSet<string>> GetLocalTargetedId()
@@ -60,7 +55,7 @@ namespace GetNearRankMod.Utilities
 
             Logger.log.Debug("Start GetLocalRankData");
 
-            Dictionary<string, string> result = await GetLocalRankData(baseUrl);
+            Dictionary<string, string> result = await GetCountryRankData(basePageEndpoint);
             var pair = result.FirstOrDefault(c => c.Value == PluginConfig.Instance.YourId);
             baseRank = pair.Key;
             Logger.log.Debug("Your Local Rank " + baseRank);
@@ -88,7 +83,7 @@ namespace GetNearRankMod.Utilities
             {
                 if (Int32.Parse(baseRank) >= branchRank)
                 {
-                    Dictionary<string, string> resultSecond = await GetLocalRankData(nextPageUrl);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(nextPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
@@ -96,7 +91,7 @@ namespace GetNearRankMod.Utilities
                 }
                 else
                 {
-                    Dictionary<string, string> resultSecond = await GetLocalRankData(nextPageUrl);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(nextPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
@@ -125,37 +120,34 @@ namespace GetNearRankMod.Utilities
             // Key=>(songHash,difficulty),Value=>pp
 
             int pageNumber = 1;
-            var playResult = new Dictionary<Tuple<string, string>, string>();
+            var playScores = new Dictionary<Tuple<string, string>, string>();
 
             for (int i = 0; i + pageNumber <= pageRange; i++)
             {
-                string endpoint = $"https://new.scoresaber.com/api/player/{id}/scores/top/{i + pageNumber}";
+                string playerScoresEndpoint = $"https://scoresaber.com/api/player/{id}/scores?page={i + pageNumber}";
 
                 HttpClient client = new HttpClient();
-                var response = await client.GetAsync(endpoint);
+                var response = await client.GetAsync(playerScoresEndpoint);
                 string jsonString = await response.Content.ReadAsStringAsync();
 
                 dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-                if (jsonDynamic.error == null)
+                foreach (var jsonScores in jsonDynamic)
                 {
-                    foreach (var jsonScores in jsonDynamic["scores"])
-                    {
-                        string songHash = JsonConvert.SerializeObject(jsonScores["songHash"]).Replace("\"", "");
-                        string difficulty = JsonConvert.SerializeObject(jsonScores["difficultyRaw"]);
-                        string pp = JsonConvert.SerializeObject(jsonScores["pp"]);
-                        var hashAndDifficulty = new Tuple<string, string>(songHash, difficulty);
-                        playResult.Add(hashAndDifficulty, pp);
-                    }
+                    string songHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"","");
+                    string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficultyRaw"]);
+                    string pp = JsonConvert.SerializeObject(jsonScores["score"]["pp"]);
+                    var hashAndDifficulty = new Tuple<string, string>(songHash, difficulty);
+                    playScores.Add(hashAndDifficulty, pp);
                 }
             }
 
-            if (playResult == null)
+            if (playScores == null)
             {
-                Logger.log.Info("No Play Result");
+                Logger.log.Info($"No {id}'s Play Scores");
             }
 
-            return playResult;
+            return playScores;
         }
     }
 }

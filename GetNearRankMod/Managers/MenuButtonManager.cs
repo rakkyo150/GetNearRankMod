@@ -14,8 +14,6 @@ namespace GetNearRankMod.Managers
         private readonly GetUsersData _getUsersData;
         private readonly PlaylistMaker _playlistMaker;
 
-        Dictionary<string, string> othersPlayResult = new Dictionary<string, string>();
-
         public MenuButtonManager(GetUsersData getUsersData, PlaylistMaker playlistMaker)
         {
             _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", GeneratePlaylist, true);
