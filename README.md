@@ -14,8 +14,9 @@ MOD導入後、一度Beat Saberを起動してBeat Saber/UserData/GetNearRankMod
 
 例：https://scoresaber.com/u/76561198333869741 の場合、「76561198333869741」に書き換えてください<br>
 
-次に、YourLocalRankPageNumberに自分が日本何ページ目にいるかを入力してください。<br>
-日本１ページ目の人は「1」、日本２ページ目の人は「2」というように書き換えて下さい。<br>
+~~次に、YourLocalRankPageNumberに自分が日本何ページ目にいるかを入力してください。<br>
+日本１ページ目の人は「1」、日本２ページ目の人は「2」というように書き換えて下さい。~~<br>
+v2.2.0からはこの設定は不要になりました。
 
 最後に、GetNearRankMod.jsonを上書き保存して初期設定は終了です。
 
