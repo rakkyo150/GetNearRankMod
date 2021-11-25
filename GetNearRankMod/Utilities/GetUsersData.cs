@@ -127,7 +127,7 @@ namespace GetNearRankMod.Utilities
                 foreach (var jsonScores in jsonDynamic)
                 {
                     string songHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"","");
-                    string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficultyRaw"]);
+                    string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficulty"]["difficultyRaw"]);
                     string pp = JsonConvert.SerializeObject(jsonScores["score"]["pp"]);
                     var hashAndDifficulty = new Tuple<string, string>(songHash, difficulty);
                     playScores.Add(hashAndDifficulty, pp);

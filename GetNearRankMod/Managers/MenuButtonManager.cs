@@ -44,6 +44,7 @@ namespace GetNearRankMod.Managers
 
             var targetedIdList = await _getUsersData.GetLocalTargetedId(myCountryRank);
 
+            Logger.log.Debug("Start Getting My Play Result");
             var myPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
             foreach (string targetedId in targetedIdList)
             {
