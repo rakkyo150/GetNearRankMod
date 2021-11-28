@@ -40,12 +40,14 @@ namespace GetNearRankMod.Managers
 
             _menuButton.Text = "Generating...";
 
-            var myCountryRank = await _getUsersData.GetMyCountryRank();
+            _getUsersData.GetYourId();
 
-            var targetedIdList = await _getUsersData.GetLocalTargetedId(myCountryRank);
+            var yourCountryRank = await _getUsersData.GetYourCountryRank();
 
-            Logger.log.Debug("Start Getting My Play Result");
-            var myPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
+            var targetedIdList = await _getUsersData.GetLocalTargetedId(yourCountryRank);
+
+            Logger.log.Debug("Start Getting YourPlayResult");
+            var yourPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
             foreach (string targetedId in targetedIdList)
             {
                 Logger.log.Debug("Targeted Id " + targetedId);
@@ -53,7 +55,7 @@ namespace GetNearRankMod.Managers
                 othersPlayResults.Add(otherPlayResult);
             }
 
-            var hashAndDifficultyList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, myPlayResult);
+            var hashAndDifficultyList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
             _playlistMaker.MakePlaylist(hashAndDifficultyList);
 
             SongCore.Loader.Instance.RefreshSongs(false);
