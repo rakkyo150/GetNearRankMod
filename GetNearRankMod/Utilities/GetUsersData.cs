@@ -31,7 +31,7 @@ namespace GetNearRankMod.Utilities
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-            string yourCountryRankStr = jsonDynamic["countryRank"];
+            string yourCountryRankStr = JsonConvert.SerializeObject(jsonDynamic["countryRank"]);
             yourCountryRank = Int32.Parse(yourCountryRankStr);
 
             Logger.log.Debug("Your Local Rank " + yourCountryRank);
@@ -79,9 +79,9 @@ namespace GetNearRankMod.Utilities
 
             if (otherPage)
             {
-                if (yourCountryRank >= branchRank)
+                if (yourCountryRank > branchRank)
                 {
-                    Dictionary<string, string> resultSecond = await GetCountryRankData(lowerRankPageEndpoint);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(higherRankPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
@@ -89,7 +89,7 @@ namespace GetNearRankMod.Utilities
                 }
                 else
                 {
-                    Dictionary<string, string> resultSecond = await GetCountryRankData(higherRankPageEndpoint);
+                    Dictionary<string, string> resultSecond = await GetCountryRankData(lowerRankPageEndpoint);
                     foreach (var resultPair in resultSecond)
                     {
                         result.Add(resultPair.Key, resultPair.Value);
