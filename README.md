@@ -4,21 +4,23 @@
 現状、日本ローカルランク基準でしか正常に動作しません。<br>
 要望などがあれば、ワールドランク基準や他ローカルランク基準でも動作するようにするかもしれません。
 
-# 初期設定
-**初期設定は必須です。**<br>
-お手数ですがよろしくお願いします。
+# ~~初期設定~~
+~~**初期設定は必須です。**<br>
+お手数ですがよろしくお願いします。~~
 
-MOD導入後、一度Beat Saberを起動してBeat Saber/UserData/GetNearRankMod.jsonを作成してください。<br>
+~~MOD導入後、一度Beat Saberを起動してBeat Saber/UserData/GetNearRankMod.jsonを作成してください。<br>
 その後、GetNearRankMod.jsonをメモ帳などで開き、YourIdを自分のScoreSaberのIDに書き換えてください。<br>
-ここでのIDとは、自分のScoreSaberのページのURLのhttps://scoresaber.com/u/?????????????????の?部分です。<br>
+ここでのIDとは、自分のScoreSaberのページのURLのhttps://scoresaber.com/u/?????????????????の?部分です。~~<br>
 
-例：https://scoresaber.com/u/76561198333869741 の場合、「76561198333869741」に書き換えてください<br>
+~~例：https://scoresaber.com/u/76561198333869741 の場合、「76561198333869741」に書き換えてください<br>~~
 
 ~~次に、YourLocalRankPageNumberに自分が日本何ページ目にいるかを入力してください。<br>
-日本１ページ目の人は「1」、日本２ページ目の人は「2」というように書き換えて下さい。~~<br>
-v2.2.0からはこの設定は不要になりました。
+日本１ページ目の人は「1」、日本２ページ目の人は「2」というように書き換えて下さい。<br>
+v2.2.0からはページ番号の設定は不要になりました。~~
 
-最後に、GetNearRankMod.jsonを上書き保存して初期設定は終了です。
+~~最後に、GetNearRankMod.jsonを上書き保存して初期設定は終了です。~~<br>
+
+v2.3.0から初期設定は不要になりました！！
 
 # 使用方法
 ビートセイバーのホーム画面左にあるGENERATE NEAR RANK PLAYLISTを押すだけです。<br>
@@ -29,7 +31,7 @@ v2.2.0からはこの設定は不要になりました。
 2. 待つ(メニュー画面から移動しても構いません)<br>
 ![スクリーンショット 2021-10-15 022232](https://user-images.githubusercontent.com/86054813/137366693-0ab5dbcf-9149-4274-a504-505fa87d4c66.png)
 
-3. 確認<br>
+3. リロードが入ったら確認<br>
 ![スクリーンショット 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
 
 いつまでたってもプレイリストが生成されない場合は、初期設定でつまずいている可能性があります。<br>
