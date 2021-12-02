@@ -58,7 +58,7 @@ namespace GetNearRankMod.Managers
                 iProgress.Report("Getting Your Play Results");
                 var yourPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
 
-                iProgress.Report($"Getting Rivals Play Results");
+                iProgress.Report($"Getting Rivals' Play Results");
                 foreach (string targetedId in targetedIdList)
                 {
                     Logger.log.Debug("Targeted Id " + targetedId);
