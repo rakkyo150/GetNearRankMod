@@ -16,7 +16,9 @@ namespace GetNearRankMod.Managers
 
         public MenuButtonManager(GetUsersData getUsersData, PlaylistMaker playlistMaker)
         {
-            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", GeneratePlaylist, true);
+            Progress<string> progress = new Progress<string>(onProgressChanged);
+
+            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () =>  await GeneratePlaylist(progress), true);
             _getUsersData = getUsersData;
             _playlistMaker = playlistMaker;
         }
@@ -34,35 +36,65 @@ namespace GetNearRankMod.Managers
             }
         }
 
-        public async void GeneratePlaylist()
+        public async Task GeneratePlaylist(IProgress<string> iProgress)
         {
-            var othersPlayResults = new List<Dictionary<Tuple<string, string>, string>>();
-
-            _menuButton.Text = "Generating...";
-
-            _getUsersData.GetYourId();
-
-            var yourCountryRank = await _getUsersData.GetYourCountryRank();
-
-            var targetedIdList = await _getUsersData.GetLocalTargetedId(yourCountryRank);
-
-            Logger.log.Debug("Start Getting YourPlayResult");
-            var yourPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
-            foreach (string targetedId in targetedIdList)
+            try
             {
-                Logger.log.Debug("Targeted Id " + targetedId);
-                var otherPlayResult = await _getUsersData.GetPlayResult(targetedId, PluginConfig.Instance.OthersPageRange);
-                othersPlayResults.Add(otherPlayResult);
+                var othersPlayResults = new List<Dictionary<Tuple<string, string>, string>>();
+
+                iProgress.Report("Generating...");
+
+
+                iProgress.Report("Getting Your ID");
+                _getUsersData.GetYourId();
+
+
+                iProgress.Report("Getting Your Local Rank");
+                var yourCountryRank = await _getUsersData.GetYourCountryRank();
+
+
+                iProgress.Report("Getting Rivals' ID");
+                var targetedIdList = await _getUsersData.GetLocalTargetedId(yourCountryRank);
+                
+
+                Logger.log.Debug("Start Getting YourPlayResult");
+                iProgress.Report("Getting Your Play Results");
+                var yourPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
+
+                iProgress.Report($"Getting Rivals Play Results");
+                foreach (string targetedId in targetedIdList)
+                {
+                    Logger.log.Debug("Targeted Id " + targetedId);
+                    var otherPlayResult = await _getUsersData.GetPlayResult(targetedId, PluginConfig.Instance.OthersPageRange);
+                    othersPlayResults.Add(otherPlayResult);
+                }
+
+                iProgress.Report("Making Lower PP Map List");
+                var hashAndDifficultyList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
+
+                iProgress.Report("Making Playllist");
+                _playlistMaker.MakePlaylist(hashAndDifficultyList);
+
+                SongCore.Loader.Instance.RefreshSongs(false);
+
+                Logger.log.Debug("Success!");
+                iProgress.Report("Success!");
             }
+            catch(Exception e)
+            {
+                Logger.log.Debug("Error Message: " + e.Message);
+                iProgress.Report("Error");
+            }
+            finally
+            {
+                await Task.Delay(3000);
+                iProgress.Report(_buttonName);
+            }
+        }
 
-            var hashAndDifficultyList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
-            _playlistMaker.MakePlaylist(hashAndDifficultyList);
-
-            SongCore.Loader.Instance.RefreshSongs(false);
-
-            _menuButton.Text = "Finish!";
-            await Task.Delay(3000);
-            _menuButton.Text = _buttonName;
+        internal void onProgressChanged(string debug)
+        {
+            _menuButton.Text = debug;
         }
     }
 }
