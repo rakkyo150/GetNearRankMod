@@ -42,9 +42,6 @@ namespace GetNearRankMod.Managers
             {
                 var othersPlayResults = new List<Dictionary<Tuple<string, string>, string>>();
 
-                iProgress.Report("Generating...");
-
-
                 iProgress.Report("Getting Your ID");
                 _getUsersData.GetYourId();
 
