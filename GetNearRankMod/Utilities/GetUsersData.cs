@@ -130,7 +130,7 @@ namespace GetNearRankMod.Utilities
 
                 dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-                foreach (var jsonScores in jsonDynamic)
+                foreach (var jsonScores in jsonDynamic["playerScores"])
                 {
                     string songHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"", "");
                     string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficulty"]["difficultyRaw"]);
@@ -159,7 +159,7 @@ namespace GetNearRankMod.Utilities
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonStr);
 
-            foreach (var jd in jsonDynamic)
+            foreach (var jd in jsonDynamic["players"])
             {
                 string rank = JsonConvert.SerializeObject(jd["countryRank"]);
                 string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"", "");
