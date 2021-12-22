@@ -25,7 +25,7 @@ namespace GetNearRankMod
             Logger.log = logger;
             PluginConfig.Instance = cfgProvider.Generated<PluginConfig>();
             BSMLSettings.instance.AddSettingsMenu("GetNearRankMod", $"GetNearRankMod.Settings.bsml", SettingController.instance);
-            injector.OnMenu<Installers.MenuButtonInstaller>();
+            injector.Install<Installers.MenuButtonInstaller>(Location.Menu);
             Logger.log.Info("GetNearRankMod initialized.");
         }
 
