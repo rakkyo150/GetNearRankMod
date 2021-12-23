@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.MenuButtons;
 using GetNearRankMod.Utilities;
 using Zenject;
@@ -30,7 +31,7 @@ namespace GetNearRankMod.Managers
 
         public void Dispose()
         {
-            if (MenuButtons.IsSingletonAvailable)
+            if (BSMLParser.IsSingletonAvailable&&MenuButtons.IsSingletonAvailable)
             {
                 MenuButtons.instance.UnregisterButton(_menuButton);
             }
