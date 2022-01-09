@@ -44,6 +44,6 @@ Beat Saberのゲーム内ホーム画面の下の歯車→MOD SETTINGS→GetNear
 |項目|説明|
 |:---|:---|
 |`RankRange`|自分の前後何位の人を対象とするか(２ページ分まで情報取得可能)|
-|`PPFilter`|何PP差を対象とするか|
+|`PPFilter`|何PP差以上を対象とするか|
 |`YourPageRange`|自分のトップスコア何ページ目までの情報を取得するか|
 |`OthersPageRange`|ライバルのトップスコア何ページ目までの情報を取得するか|
