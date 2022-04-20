@@ -17,7 +17,7 @@ namespace GetNearRankMod.Utilities
             _userModel = userModel;
         }
 
-        public async void GetYourId()
+        public async Task GetYourId()
         {
             var userId = await _userModel.GetUserInfo();
             PluginConfig.Instance.YourId = userId.platformUserId;
