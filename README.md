@@ -1,10 +1,14 @@
 # GetNearRankMod
 
+## はじめに
 [GetNearRank](https://github.com/culage/GetNearRank)を参考にした、順位が近くの人が自分よりPPを多く取ったランク曲を取得してプレイリストにするMODです。<br>
+Quest2などのスタンドアローン機のみでBeat SaberをしておりPCModが使えない環境の人で、WindowsやMacをお使いの方は、ツール版の[GetNearRankScript](https://github.com/rakkyo150/GetNearRankScript)を利用してください。<br>
+GetNearRankScriptも動かすことができない環境の方は、Docker環境があれば使える[GetNearRankDocker](https://github.com/rakkyo150/GetNearRankDocker)をお使いください。<br>
+
 現状、日本ローカルランク基準でしか正常に動作しません。<br>
 要望などがあれば、ワールドランク基準や他ローカルランク基準でも動作するようにするかもしれません。
 
-# ~~初期設定~~
+## 初期設定
 ~~**初期設定は必須です。**<br>
 お手数ですがよろしくお願いします。~~
 
@@ -22,7 +26,7 @@ v2.2.0からはページ番号の設定は不要になりました。~~
 
 v2.3.0から初期設定は不要になりました！！
 
-# 使用方法
+## 使用方法
 ビートセイバーのホーム画面左にあるNEAR RANK PLAYLISTを押すだけです。<br>
 
 1. 押す<br>
@@ -38,11 +42,11 @@ v2.4.0からはボタン上に進捗を表示するようになり、エラー�
 もしうまくいかない場合は、不具合かもしれないので気軽に報告していただけるととても助かります。<br>
 よろしくお願いします。
 
-# 任意設定
+## 任意設定
 Beat Saberのゲーム内ホーム画面の下の歯車→MOD SETTINGS→GetNearRankModから設定を変更できます。<br>
 |項目|説明|
 |:---|:---|
 |`RankRange`|自分の前後何位の人を対象とするか(２ページ分まで情報取得可能)|
-|`PPFilter`|何PP差を対象とするか|
+|`PPFilter`|何PP差以上を対象とするか|
 |`YourPageRange`|自分のトップスコア何ページ目までの情報を取得するか|
 |`OthersPageRange`|ライバルのトップスコア何ページ目までの情報を取得するか|
