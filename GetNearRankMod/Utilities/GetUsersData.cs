@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
 using Newtonsoft.Json;
-using Steamworks;
 
 namespace GetNearRankMod.Utilities
 {
@@ -11,10 +10,19 @@ namespace GetNearRankMod.Utilities
     {
         // 新API対応
 
-        public void GetYourId()
+        IPlatformUserModel _userModel;
+        
+        GetUsersData(IPlatformUserModel userModel)
         {
-            CSteamID cSteamID = SteamUser.GetSteamID();
-            PluginConfig.Instance.YourId = cSteamID.m_SteamID.ToString();
+            _userModel = userModel;
+        }
+        
+        public async void GetYourId()
+        {
+            var userId = await _userModel.GetUserInfo();
+            PluginConfig.Instance.YourId = userId.platformUserId;
+
+            Logger.log.Debug("Your Id "+PluginConfig.Instance.YourId);
         }
 
         public async Task<int> GetYourCountryRank()
