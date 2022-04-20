@@ -1,8 +1,8 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Net.Http;
 using System.Threading.Tasks;
-using Newtonsoft.Json;
 
 namespace GetNearRankMod.Utilities
 {
@@ -11,18 +11,18 @@ namespace GetNearRankMod.Utilities
         // 新API対応
 
         IPlatformUserModel _userModel;
-        
+
         GetUsersData(IPlatformUserModel userModel)
         {
             _userModel = userModel;
         }
-        
+
         public async void GetYourId()
         {
             var userId = await _userModel.GetUserInfo();
             PluginConfig.Instance.YourId = userId.platformUserId;
 
-            Logger.log.Debug("Your Id "+PluginConfig.Instance.YourId);
+            Logger.log.Debug("Your Id " + PluginConfig.Instance.YourId);
         }
 
         public async Task<int> GetYourCountryRank()

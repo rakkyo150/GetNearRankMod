@@ -1,9 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using BeatSaberMarkupLanguage;
+﻿using BeatSaberMarkupLanguage;
 using BeatSaberMarkupLanguage.MenuButtons;
 using GetNearRankMod.Utilities;
+using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using Zenject;
 
 namespace GetNearRankMod.Managers
@@ -19,7 +19,7 @@ namespace GetNearRankMod.Managers
         {
             Progress<string> progress = new Progress<string>(onProgressChanged);
 
-            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () =>  await GeneratePlaylist(progress), true);
+            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () => await GeneratePlaylist(progress), true);
             _getUsersData = getUsersData;
             _playlistMaker = playlistMaker;
         }
@@ -31,7 +31,7 @@ namespace GetNearRankMod.Managers
 
         public void Dispose()
         {
-            if (BSMLParser.IsSingletonAvailable&&MenuButtons.IsSingletonAvailable)
+            if (BSMLParser.IsSingletonAvailable && MenuButtons.IsSingletonAvailable)
             {
                 MenuButtons.instance.UnregisterButton(_menuButton);
             }
@@ -53,7 +53,7 @@ namespace GetNearRankMod.Managers
 
                 iProgress.Report("Getting Rivals' ID");
                 var targetedIdList = await _getUsersData.GetLocalTargetedId(yourCountryRank);
-                
+
 
                 Logger.log.Debug("Start Getting YourPlayResult");
                 iProgress.Report("Getting Your Play Results");
@@ -78,7 +78,7 @@ namespace GetNearRankMod.Managers
                 Logger.log.Debug("Success!");
                 iProgress.Report("Success!");
             }
-            catch(Exception e)
+            catch (Exception e)
             {
                 Logger.log.Debug("Error Message: " + e.Message);
                 iProgress.Report("Error");
