@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Reflection;
 
 namespace GetNearRankMod.Utilities
 {
@@ -10,6 +11,7 @@ namespace GetNearRankMod.Utilities
         public string playlistTitle { get; set; }
         public List<Songs> songs { get; set; }
         public string playlistAuthor { get; set; }
+        public string image { get; set; }
     }
 
     public class Songs
@@ -85,7 +87,8 @@ namespace GetNearRankMod.Utilities
 
             Playlist playlistEdit = new Playlist();
             playlistEdit.playlistTitle = _fileName;
-            playlistEdit.playlistAuthor = "HOGE_PLAYLIST_AUTHOR";
+            playlistEdit.playlistAuthor = "GetNearRankMod";
+            playlistEdit.image = GetCoverImage();
             List<Songs> songsList = new List<Songs>();
 
             foreach (var hashAndDifficulty in hashAndDifficultyList)
@@ -145,6 +148,25 @@ namespace GetNearRankMod.Utilities
             StreamWriter wr = new StreamWriter(_beatSaberPlaylistPath, false);
             wr.WriteLine(_jsonFinish);
             wr.Close();
+        }
+
+        public string GetCoverImage()
+        {
+            try
+            {
+                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"GetNearRankMod.Resources.GetNearRankModImage.png"))
+                {
+                    var b = new byte[stream.Length];
+                    stream.Read(b, 0, (int)stream.Length);
+                    return Convert.ToBase64String(b);
+                }
+            }
+            catch (Exception)
+            {
+                // ignored
+            }
+
+            return "";
         }
     }
 }
