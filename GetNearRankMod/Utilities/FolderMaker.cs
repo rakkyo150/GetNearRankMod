@@ -34,13 +34,13 @@ namespace GetNearRankMod
                     playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                     continue;
                 }
-                
+
                 try
                 {
                     File.Delete(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                     playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.log.Error(ex.Message);
                 }

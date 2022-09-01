@@ -75,7 +75,7 @@ namespace GetNearRankMod.Utilities
             // Playlist作成
 
             SameNamePlaylistDeleter sameNamePlaylistDeleter = new SameNamePlaylistDeleter();
-            
+
             string _fileName;
             string _outputPath;
             string hash;
@@ -89,7 +89,7 @@ namespace GetNearRankMod.Utilities
             "-OPR" + PluginConfig.Instance.OthersPageRange;
 
             sameNamePlaylistDeleter.DeleteSameNamePlaylist(_fileName + ".bplist");
-            
+
             if (Directory.Exists(BSPath.GetNearRankModFolderPath) && PluginConfig.Instance.FolderMode)
             {
                 _outputPath = Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");

@@ -1,11 +1,6 @@
 ﻿using GetNearRankMod.Static;
 using System;
-using System.Collections.Generic;
-using System.Globalization;
 using System.IO;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GetNearRankMod.Utilities
 {
@@ -21,12 +16,12 @@ namespace GetNearRankMod.Utilities
                 string fileName = playlistFileInfo.Name;
 
                 if (fileName != playlistNameWithExtension) continue;
-                
+
                 try
                 {
                     playlistFileInfo.Delete();
                 }
-                catch(Exception ex)
+                catch (Exception ex)
                 {
                     Logger.log.Error(ex.Message);
                 }
