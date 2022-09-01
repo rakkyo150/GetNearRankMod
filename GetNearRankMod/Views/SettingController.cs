@@ -14,10 +14,10 @@ namespace GetNearRankMod.Views
         
         public void SyncWithPluginConfig(string propetyName) 
         {
-            System.Reflection.PropertyInfo[] a =typeof(SettingController).GetProperties();
-            foreach(var b in a)
+            System.Reflection.PropertyInfo[] thisPropetyInfo =typeof(SettingController).GetProperties();
+            foreach(var propertyInfo in thisPropetyInfo)
             {
-                if (b.Name != propetyName) continue;
+                if (propertyInfo.Name != propetyName) continue;
 
                 NotifyPropertyChanged(propetyName);
                 break;
