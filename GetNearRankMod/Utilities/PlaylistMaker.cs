@@ -44,13 +44,15 @@ namespace GetNearRankMod.Utilities
                         PPData yourPP = your[keyDictionary];
                         PPData otherPP = otherDictionary[keyDictionary];
 
-                        if (otherPP.PP - yourPP.PP >= PluginConfig.Instance.PPFilter)
+                        if (otherPP.PP - yourPP.PP < PluginConfig.Instance.PPFilter)
                         {
-                            if (!mapDataList.Contains(keyDictionary))
-                            {
-                                mapDataList.Add(keyDictionary);
-                                Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty},{otherPP.PP - yourPP.PP}PP");
-                            }
+                            continue;
+                        }
+
+                        if (!mapDataList.Contains(keyDictionary))
+                        {
+                            mapDataList.Add(keyDictionary);
+                            Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty},{otherPP.PP - yourPP.PP}PP");
                         }
                     }
                     else
