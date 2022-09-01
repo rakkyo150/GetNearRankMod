@@ -1,0 +1,7 @@
+﻿<settings-container>
+  <increment-setting text='Rank Range' value='RankRange' increment='1' min='1' max='20' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
+  <increment-setting text='PP Filter' value='PPFilter' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
+  <increment-setting text='Your Page Range' value='YourPageRange' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
+  <increment-setting text='Others Page Range' value='OthersPageRange' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
+  <bool-setting text='Folder Mode' value='FolderMode' apply-on-change='true' bind-value='true'></bool-setting>
+</settings-container>

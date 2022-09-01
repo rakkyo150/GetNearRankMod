@@ -10,7 +10,7 @@ namespace GetNearRankMod.Utilities
     {
         // 新API対応
 
-        private IPlatformUserModel _userModel;
+        private readonly IPlatformUserModel _userModel;
 
         private UsersDataGetter(IPlatformUserModel userModel)
         {

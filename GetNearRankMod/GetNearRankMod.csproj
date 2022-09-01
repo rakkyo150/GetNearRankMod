@@ -150,14 +150,14 @@
     </Compile>
     <Compile Include="Data\MapData.cs" />
     <Compile Include="Static\BSPath.cs" />
-    <Compile Include="FolderMaker.cs" />
+    <Compile Include="Utilities\FolderMaker.cs" />
     <Compile Include="Utilities\UsersDataGetter.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginConfig.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SettingController.cs" />
+    <Compile Include="Views\SettingController.cs" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="manifest.json" />
@@ -170,7 +170,7 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EmbeddedResource Include="Settings.bsml" />
+    <EmbeddedResource Include="Views\Settings.bsml" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="BeatSaberModdingTools.Tasks">

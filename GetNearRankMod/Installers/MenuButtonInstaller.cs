@@ -1,5 +1,6 @@
 ﻿using GetNearRankMod.Managers;
 using GetNearRankMod.Utilities;
+using GetNearRankMod.Views;
 using Zenject;
 
 namespace GetNearRankMod.Installers
@@ -10,7 +11,7 @@ namespace GetNearRankMod.Installers
         {
             Container.Bind<UsersDataGetter>().AsSingle();
             Container.Bind<PlaylistMaker>().AsSingle();
-            
+
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();
         }
     }

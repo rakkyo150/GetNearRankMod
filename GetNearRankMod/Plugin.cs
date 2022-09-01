@@ -1,4 +1,5 @@
 ﻿using BeatSaberMarkupLanguage.Settings;
+using GetNearRankMod.Views;
 using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
@@ -25,9 +26,16 @@ namespace GetNearRankMod
             Instance = this;
             Logger.log = logger;
             PluginConfig.Instance = cfgProvider.Generated<PluginConfig>();
-            BSMLSettings.instance.AddSettingsMenu("GetNearRankMod", $"GetNearRankMod.Settings.bsml", SettingController.instance);
             injector.Install<Installers.MenuButtonInstaller>(Location.Menu);
 
+            BSMLSettings.instance.AddSettingsMenu("GetNearRankMod", $"GetNearRankMod.Views.Settings.bsml", SettingController.Instance);
+
+            if (!PluginConfig.Instance.FolderMode)
+            {
+                Logger.log.Info("GetNearRankMod initialized.");
+                return;
+            }
+            
             // 万が一エラーだして止まるのはまずいので、丁寧に例外処理いれておく
             try
             {
@@ -61,14 +69,12 @@ namespace GetNearRankMod
         public void OnApplicationStart()
         {
             Logger.log.Debug("OnApplicationStart");
-
         }
 
         [OnExit]
         public void OnApplicationQuit()
         {
             Logger.log.Debug("OnApplicationQuit");
-
         }
     }
 }

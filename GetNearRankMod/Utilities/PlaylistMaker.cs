@@ -26,7 +26,7 @@ namespace GetNearRankMod.Utilities
         public string name { get; set; }
         public string characteristic { get; set; }
     }
-
+    
     internal class PlaylistMaker
     {
 
@@ -86,7 +86,7 @@ namespace GetNearRankMod.Utilities
             "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
             "-OPR" + PluginConfig.Instance.OthersPageRange;
 
-            if (Directory.Exists(BSPath.GetNearRankModFolderPath))
+            if (Directory.Exists(BSPath.GetNearRankModFolderPath) && PluginConfig.Instance.FolderMode)
             {
                 _outputPath = Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
             }
