@@ -1,8 +1,5 @@
 ﻿using BeatSaberMarkupLanguage.Attributes;
-using BeatSaberMarkupLanguage.Settings;
 using BeatSaberMarkupLanguage.ViewControllers;
-using System;
-using Zenject;
 
 namespace GetNearRankMod.Views
 {
@@ -10,12 +7,12 @@ namespace GetNearRankMod.Views
     [ViewDefinition("GetNearRankMod.Views.Settings.bsml")]
     public class SettingController : BSMLAutomaticViewController
     {
-        public static SettingController Instance { get; private set; }=new SettingController();
-        
-        public void SyncWithPluginConfig(string propetyName) 
+        public static SettingController Instance { get; private set; } = new SettingController();
+
+        public void SyncWithPluginConfig(string propetyName)
         {
-            System.Reflection.PropertyInfo[] thisPropetyInfo =typeof(SettingController).GetProperties();
-            foreach(var propertyInfo in thisPropetyInfo)
+            System.Reflection.PropertyInfo[] thisPropetyInfo = typeof(SettingController).GetProperties();
+            foreach (var propertyInfo in thisPropetyInfo)
             {
                 if (propertyInfo.Name != propetyName) continue;
 
@@ -23,7 +20,7 @@ namespace GetNearRankMod.Views
                 break;
             }
         }
-        
+
         [UIValue("RankRange")]
         public int RankRange
         {

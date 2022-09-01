@@ -1,6 +1,5 @@
 ﻿using GetNearRankMod.Managers;
 using GetNearRankMod.Utilities;
-using GetNearRankMod.Views;
 using Zenject;
 
 namespace GetNearRankMod.Installers

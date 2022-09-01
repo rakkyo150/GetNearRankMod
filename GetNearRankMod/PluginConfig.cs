@@ -8,7 +8,7 @@ using System.Runtime.CompilerServices;
 namespace GetNearRankMod
 {
     [IPA.Config.Stores.Attributes.NotifyPropertyChanges]
-    public class PluginConfig: INotifyPropertyChanged,IDisposable
+    public class PluginConfig : INotifyPropertyChanged, IDisposable
     {
         public event Action<PluginConfig> OnReloaded;
         public event Action<PluginConfig> ChangedEvent;

@@ -35,7 +35,7 @@ namespace GetNearRankMod
                 Logger.log.Info("GetNearRankMod initialized.");
                 return;
             }
-            
+
             // 万が一エラーだして止まるのはまずいので、丁寧に例外処理いれておく
             try
             {
@@ -45,7 +45,7 @@ namespace GetNearRankMod
                 FolderMaker folderMaker = new FolderMaker();
                 folderMaker.MakeGetNearRankModFolder();
             }
-            catch(Exception ex)
+            catch (Exception ex)
             {
                 Logger.log.Error(ex.Message);
             }

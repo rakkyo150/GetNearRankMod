@@ -4,14 +4,11 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Reflection;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace GetNearRankMod
 {
     internal class FolderMaker
-    {      
+    {
 
         internal void MakeGetNearRankModFolder()
         {
@@ -20,20 +17,20 @@ namespace GetNearRankMod
             Directory.CreateDirectory(BSPath.GetNearRankModFolderPath);
             FileInfo[] playlistsFilesInfo = new DirectoryInfo(BSPath.PlaylistsPath).GetFiles("*", SearchOption.TopDirectoryOnly);
 
-            foreach(FileInfo playlistFileInfo in playlistsFilesInfo)
+            foreach (FileInfo playlistFileInfo in playlistsFilesInfo)
             {
-                string fileName= playlistFileInfo.Name;
+                string fileName = playlistFileInfo.Name;
 
                 // GetNearRankModで生成したプレイリストなら
-                if (DateTime.TryParseExact(fileName.Substring(0,8), "yyyyMMdd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _) &&
+                if (DateTime.TryParseExact(fileName.Substring(0, 8), "yyyyMMdd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _) &&
                    ExistsGetNearRankPlaylistWords(fileName) &&
                     fileName.EndsWith(".bplist"))
                 {
-                    if(File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
+                    if (File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
                     {
                         File.Delete(fileName);
                     }
-                    
+
                     playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                 }
             }

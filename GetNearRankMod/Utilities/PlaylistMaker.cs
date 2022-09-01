@@ -26,7 +26,7 @@ namespace GetNearRankMod.Utilities
         public string name { get; set; }
         public string characteristic { get; set; }
     }
-    
+
     internal class PlaylistMaker
     {
 
