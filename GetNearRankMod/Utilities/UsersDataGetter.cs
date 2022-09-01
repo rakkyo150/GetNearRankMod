@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace GetNearRankMod.Utilities
 {
-    internal class GetUsersData
+    internal class UsersDataGetter
     {
         // 新API対応
 
         IPlatformUserModel _userModel;
 
-        GetUsersData(IPlatformUserModel userModel)
+        UsersDataGetter(IPlatformUserModel userModel)
         {
             _userModel = userModel;
         }

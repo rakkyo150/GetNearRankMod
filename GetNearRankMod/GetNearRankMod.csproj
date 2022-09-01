@@ -145,7 +145,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\GetUsersData.cs" />
+    <Compile Include="Utilities\UsersDataGetter.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />
     <Compile Include="Plugin.cs" />

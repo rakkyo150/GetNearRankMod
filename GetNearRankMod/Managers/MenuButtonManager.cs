@@ -12,15 +12,15 @@ namespace GetNearRankMod.Managers
     {
         private readonly string _buttonName = "Near Rank Playlist";
         internal readonly MenuButton _menuButton;
-        private readonly GetUsersData _getUsersData;
+        private readonly UsersDataGetter _usersDataGetter;
         private readonly PlaylistMaker _playlistMaker;
 
-        public MenuButtonManager(GetUsersData getUsersData, PlaylistMaker playlistMaker)
+        public MenuButtonManager(UsersDataGetter usersDataGetter, PlaylistMaker playlistMaker)
         {
             Progress<string> progress = new Progress<string>(onProgressChanged);
 
             _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () => await GeneratePlaylist(progress), true);
-            _getUsersData = getUsersData;
+            _usersDataGetter = usersDataGetter;
             _playlistMaker = playlistMaker;
         }
 
@@ -44,26 +44,26 @@ namespace GetNearRankMod.Managers
                 var othersPlayResults = new List<Dictionary<Tuple<string, string>, string>>();
 
                 iProgress.Report("Getting Your ID");
-                await _getUsersData.GetYourId();
+                await _usersDataGetter.GetYourId();
 
 
                 iProgress.Report("Getting Your Local Rank");
-                var yourCountryRank = await _getUsersData.GetYourCountryRank();
+                var yourCountryRank = await _usersDataGetter.GetYourCountryRank();
 
 
                 iProgress.Report("Getting Rivals' ID");
-                var targetedIdList = await _getUsersData.GetLocalTargetedId(yourCountryRank);
+                var targetedIdList = await _usersDataGetter.GetLocalTargetedId(yourCountryRank);
 
 
                 Logger.log.Debug("Start Getting YourPlayResult");
                 iProgress.Report("Getting Your Play Results");
-                var yourPlayResult = await _getUsersData.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
+                var yourPlayResult = await _usersDataGetter.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
 
                 iProgress.Report($"Getting Rivals' Play Results");
                 foreach (string targetedId in targetedIdList)
                 {
                     Logger.log.Debug("Targeted Id " + targetedId);
-                    var otherPlayResult = await _getUsersData.GetPlayResult(targetedId, PluginConfig.Instance.OthersPageRange);
+                    var otherPlayResult = await _usersDataGetter.GetPlayResult(targetedId, PluginConfig.Instance.OthersPageRange);
                     othersPlayResults.Add(otherPlayResult);
                 }
 

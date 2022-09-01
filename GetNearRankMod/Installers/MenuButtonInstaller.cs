@@ -8,7 +8,7 @@ namespace GetNearRankMod.Installers
     {
         public override void InstallBindings()
         {
-            Container.Bind<GetUsersData>().AsSingle();
+            Container.Bind<UsersDataGetter>().AsSingle();
             Container.Bind<PlaylistMaker>().AsSingle();
 
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();
