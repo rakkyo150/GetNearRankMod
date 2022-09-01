@@ -22,16 +22,27 @@ namespace GetNearRankMod
                 string fileName = playlistFileInfo.Name;
 
                 // GetNearRankModで生成したプレイリストなら
-                if (DateTime.TryParseExact(fileName.Substring(0, 8), "yyyyMMdd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _) &&
-                   ExistsGetNearRankPlaylistWords(fileName) &&
-                    fileName.EndsWith(".bplist"))
+                if (!DateTime.TryParseExact(fileName.Substring(0, 8), "yyyyMMdd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _) ||
+                    !ExistsGetNearRankPlaylistWords(fileName) ||
+                    !fileName.EndsWith(".bplist"))
                 {
-                    if (File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
-                    {
-                        File.Delete(fileName);
-                    }
+                    continue;
+                }
 
+                if (!File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
+                {
                     playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                    continue;
+                }
+                
+                try
+                {
+                    File.Delete(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                    playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                }
+                catch(Exception ex)
+                {
+                    Logger.log.Error(ex.Message);
                 }
             }
         }

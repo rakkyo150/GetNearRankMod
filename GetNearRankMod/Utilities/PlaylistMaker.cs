@@ -74,6 +74,8 @@ namespace GetNearRankMod.Utilities
         {
             // Playlist作成
 
+            SameNamePlaylistDeleter sameNamePlaylistDeleter = new SameNamePlaylistDeleter();
+            
             string _fileName;
             string _outputPath;
             string hash;
@@ -86,6 +88,8 @@ namespace GetNearRankMod.Utilities
             "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
             "-OPR" + PluginConfig.Instance.OthersPageRange;
 
+            sameNamePlaylistDeleter.DeleteSameNamePlaylist(_fileName + ".bplist");
+            
             if (Directory.Exists(BSPath.GetNearRankModFolderPath) && PluginConfig.Instance.FolderMode)
             {
                 _outputPath = Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
@@ -104,39 +108,8 @@ namespace GetNearRankMod.Utilities
             foreach (MapData mapData in mapDataList)
             {
                 hash = mapData.MapHash;
-                if (mapData.Difficulty.Contains("ExpertPlus"))
-                {
-                    name = "expertPlus";
-                }
-                else if (mapData.Difficulty.Contains("Expert"))
-                {
-                    name = "expert";
-                }
-                else if (mapData.Difficulty.Contains("Hard"))
-                {
-                    name = "hard";
-                }
-                else if (mapData.Difficulty.Contains("Normal"))
-                {
-                    name = "normal";
-                }
-                else if (mapData.Difficulty.Contains("Easy"))
-                {
-                    name = "easy";
-                }
-
-                if (mapData.Difficulty.Contains("Standard"))
-                {
-                    characteristic = "Standard";
-                }
-                else if (mapData.Difficulty.Contains("NoArrow"))
-                {
-                    characteristic = "NoArrow";
-                }
-                else if (mapData.Difficulty.Contains("SingleSaber"))
-                {
-                    characteristic = "SingleSaber";
-                }
+                name = SetDifficulty(name, mapData);
+                characteristic = SetCaracteristic(characteristic, mapData);
 
                 Songs songs = new Songs();
                 List<Difficulties> difficultiesList = new List<Difficulties>();
@@ -158,6 +131,50 @@ namespace GetNearRankMod.Utilities
             StreamWriter wr = new StreamWriter(_outputPath, false);
             wr.WriteLine(_jsonFinish);
             wr.Close();
+        }
+
+        private static string SetCaracteristic(string characteristic, MapData mapData)
+        {
+            if (mapData.Difficulty.Contains("Standard"))
+            {
+                characteristic = "Standard";
+            }
+            else if (mapData.Difficulty.Contains("NoArrow"))
+            {
+                characteristic = "NoArrow";
+            }
+            else if (mapData.Difficulty.Contains("SingleSaber"))
+            {
+                characteristic = "SingleSaber";
+            }
+
+            return characteristic;
+        }
+
+        private static string SetDifficulty(string name, MapData mapData)
+        {
+            if (mapData.Difficulty.Contains("ExpertPlus"))
+            {
+                name = "expertPlus";
+            }
+            else if (mapData.Difficulty.Contains("Expert"))
+            {
+                name = "expert";
+            }
+            else if (mapData.Difficulty.Contains("Hard"))
+            {
+                name = "hard";
+            }
+            else if (mapData.Difficulty.Contains("Normal"))
+            {
+                name = "normal";
+            }
+            else if (mapData.Difficulty.Contains("Easy"))
+            {
+                name = "easy";
+            }
+
+            return name;
         }
 
         public string GetCoverImage()
