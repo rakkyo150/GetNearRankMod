@@ -48,7 +48,7 @@ namespace GetNearRankMod.Managers
 
 
                 iProgress.Report("Getting Your Local Rank");
-                var yourCountryRank = await _usersDataGetter.GetYourCountryRank();
+                int yourCountryRank = await _usersDataGetter.GetYourCountryRank();
 
 
                 iProgress.Report("Getting Rivals' ID");
@@ -75,13 +75,12 @@ namespace GetNearRankMod.Managers
 
                 SongCore.Loader.Instance.RefreshSongs(false);
 
-                Logger.log.Debug("Success!");
                 iProgress.Report("Success!");
             }
             catch (Exception e)
             {
-                Logger.log.Debug("Error Message: " + e.Message);
                 iProgress.Report("Error");
+                Logger.log.Error("Error Message: " + e.Message);
             }
             finally
             {
@@ -93,6 +92,7 @@ namespace GetNearRankMod.Managers
         internal void onProgressChanged(string debug)
         {
             _menuButton.Text = debug;
+            Logger.log.Debug(debug);
         }
     }
 }

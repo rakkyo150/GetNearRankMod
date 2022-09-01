@@ -161,9 +161,9 @@ namespace GetNearRankMod.Utilities
                     return Convert.ToBase64String(b);
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignored
+                Logger.log.Error(ex.Message + "\n" + "Fail to complete GetCoverImage method");
             }
 
             return "";
