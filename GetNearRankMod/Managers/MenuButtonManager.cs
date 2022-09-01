@@ -41,37 +41,36 @@ namespace GetNearRankMod.Managers
         {
             try
             {
-                var othersPlayResults = new List<Dictionary<Tuple<string, string>, string>>();
+                List<Dictionary<MapData, PPData>> othersPlayResults = new List<Dictionary<MapData, PPData>>();
 
                 iProgress.Report("Getting Your ID");
                 await _usersDataGetter.GetYourId();
 
 
                 iProgress.Report("Getting Your Local Rank");
-                int yourCountryRank = await _usersDataGetter.GetYourCountryRank();
+                int yourCountryRank = await _usersDataGetter.GetYourJapanRank();
 
 
-                iProgress.Report("Getting Rivals' ID");
-                var targetedIdList = await _usersDataGetter.GetLocalTargetedId(yourCountryRank);
+                iProgress.Report("Getting Rivals' Player Info");
+                HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetJapanTargetedPlayerInfo(yourCountryRank);
 
-
-                Logger.log.Debug("Start Getting YourPlayResult");
                 iProgress.Report("Getting Your Play Results");
-                var yourPlayResult = await _usersDataGetter.GetPlayResult(PluginConfig.Instance.YourId, PluginConfig.Instance.YourPageRange);
+                PlayerInfo yourPlayerInfo = new PlayerInfo(yourCountryRank.ToString(), PluginConfig.Instance.YourId);
+                Dictionary<MapData, PPData> yourPlayResult = await _usersDataGetter.GetPlayResult(yourPlayerInfo, PluginConfig.Instance.YourPageRange);
 
                 iProgress.Report($"Getting Rivals' Play Results");
-                foreach (string targetedId in targetedIdList)
+                foreach (PlayerInfo targetedPlayerInfo in targetedPlayerInfoList)
                 {
-                    Logger.log.Debug("Targeted Id " + targetedId);
-                    var otherPlayResult = await _usersDataGetter.GetPlayResult(targetedId, PluginConfig.Instance.OthersPageRange);
+                    Logger.log.Debug("Targeted Id " + targetedPlayerInfo.Id);
+                    Dictionary<MapData, PPData> otherPlayResult = await _usersDataGetter.GetPlayResult(targetedPlayerInfo, PluginConfig.Instance.OthersPageRange);
                     othersPlayResults.Add(otherPlayResult);
                 }
 
                 iProgress.Report("Making Lower PP Map List");
-                var hashAndDifficultyList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
+                List<MapData> MapDataList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
 
                 iProgress.Report("Making Playllist");
-                _playlistMaker.MakePlaylist(hashAndDifficultyList);
+                _playlistMaker.MakePlaylist(MapDataList);
 
                 SongCore.Loader.Instance.RefreshSongs(false);
 

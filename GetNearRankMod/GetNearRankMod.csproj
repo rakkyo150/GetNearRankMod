@@ -140,11 +140,14 @@
   <ItemGroup>
     <Compile Include="Installers\MenuButtonInstaller.cs" />
     <Compile Include="Logger.cs" />
+    <Compile Include="Data\PlayerInfo.cs" />
+    <Compile Include="Data\PPData.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Data\MapData.cs" />
     <Compile Include="Utilities\UsersDataGetter.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />

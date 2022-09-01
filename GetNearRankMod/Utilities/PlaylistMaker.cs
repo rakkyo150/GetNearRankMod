@@ -29,46 +29,45 @@ namespace GetNearRankMod.Utilities
     internal class PlaylistMaker
     {
 
-        public List<Tuple<string, string>> MakeLowerPPMapList(List<Dictionary<Tuple<string, string>, string>> others, Dictionary<Tuple<string, string>, string> your)
+        public List<MapData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
         {
-            // PP比較して負けてたらリストに追加
+            // PP比較して負けてたらマップデータに追加
 
-            var hashAndDifficultyList = new List<Tuple<string, string>>();
-
-
+            List<MapData> mapDataList = new List<MapData>();
+            
             foreach (var otherDictionary in others)
             {
                 foreach (var keyDictionary in otherDictionary.Keys)
                 {
                     if (your.ContainsKey(keyDictionary))
                     {
-                        string yourPP = your[keyDictionary];
-                        string otherPP = otherDictionary[keyDictionary];
+                        PPData yourPP = your[keyDictionary];
+                        PPData otherPP = otherDictionary[keyDictionary];
 
-                        if (double.Parse(otherPP) - double.Parse(yourPP) >= PluginConfig.Instance.PPFilter)
+                        if (otherPP.PP - yourPP.PP >= PluginConfig.Instance.PPFilter)
                         {
-                            if (!hashAndDifficultyList.Contains(keyDictionary))
+                            if (!mapDataList.Contains(keyDictionary))
                             {
-                                hashAndDifficultyList.Add(keyDictionary);
-                                Logger.log.Debug($"{keyDictionary.Item1},{keyDictionary.Item2},{double.Parse(otherPP) - double.Parse(yourPP)}PP");
+                                mapDataList.Add(keyDictionary);
+                                Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty},{otherPP.PP - yourPP.PP}PP");
                             }
                         }
                     }
                     else
                     {
-                        if (!hashAndDifficultyList.Contains(keyDictionary))
+                        if (!mapDataList.Contains(keyDictionary))
                         {
-                            hashAndDifficultyList.Add(keyDictionary);
-                            Logger.log.Debug($"{keyDictionary.Item1},{keyDictionary.Item2}, MissingData");
+                            mapDataList.Add(keyDictionary);
+                            Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty}, MissingData");
                         }
                     }
                 }
             }
 
-            return hashAndDifficultyList;
+            return mapDataList;
         }
 
-        public void MakePlaylist(List<Tuple<string, string>> hashAndDifficultyList)
+        public void MakePlaylist(List<MapData> mapDataList)
         {
             // Playlist作成
 
@@ -91,39 +90,39 @@ namespace GetNearRankMod.Utilities
             playlistEdit.image = GetCoverImage();
             List<Songs> songsList = new List<Songs>();
 
-            foreach (var hashAndDifficulty in hashAndDifficultyList)
+            foreach (MapData mapData in mapDataList)
             {
-                hash = hashAndDifficulty.Item1;
-                if (hashAndDifficulty.Item2.Contains("ExpertPlus"))
+                hash = mapData.MapHash;
+                if (mapData.Difficulty.Contains("ExpertPlus"))
                 {
                     name = "expertPlus";
                 }
-                else if (hashAndDifficulty.Item2.Contains("Expert"))
+                else if (mapData.Difficulty.Contains("Expert"))
                 {
                     name = "expert";
                 }
-                else if (hashAndDifficulty.Item2.Contains("Hard"))
+                else if (mapData.Difficulty.Contains("Hard"))
                 {
                     name = "hard";
                 }
-                else if (hashAndDifficulty.Item2.Contains("Normal"))
+                else if (mapData.Difficulty.Contains("Normal"))
                 {
                     name = "normal";
                 }
-                else if (hashAndDifficulty.Item2.Contains("Easy"))
+                else if (mapData.Difficulty.Contains("Easy"))
                 {
                     name = "easy";
                 }
 
-                if (hashAndDifficulty.Item2.Contains("Standard"))
+                if (mapData.Difficulty.Contains("Standard"))
                 {
                     characteristic = "Standard";
                 }
-                else if (hashAndDifficulty.Item2.Contains("NoArrow"))
+                else if (mapData.Difficulty.Contains("NoArrow"))
                 {
                     characteristic = "NoArrow";
                 }
-                else if (hashAndDifficulty.Item2.Contains("SingleSaber"))
+                else if (mapData.Difficulty.Contains("SingleSaber"))
                 {
                     characteristic = "SingleSaber";
                 }
