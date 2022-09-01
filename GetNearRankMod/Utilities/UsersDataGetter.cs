@@ -10,9 +10,9 @@ namespace GetNearRankMod.Utilities
     {
         // 新API対応
 
-        IPlatformUserModel _userModel;
+        private IPlatformUserModel _userModel;
 
-        UsersDataGetter(IPlatformUserModel userModel)
+        private UsersDataGetter(IPlatformUserModel userModel)
         {
             _userModel = userModel;
         }
@@ -117,7 +117,7 @@ namespace GetNearRankMod.Utilities
         public async Task<Dictionary<MapData, PPData>> GetPlayResult(PlayerInfo playerInfo, int pageRange)
         {
             int topScoresPageNumber = 1;
-            var playResults = new Dictionary<MapData, PPData>();
+            Dictionary<MapData, PPData> playResults = new Dictionary<MapData, PPData>();
 
             for (int i = 0; i + topScoresPageNumber <= pageRange; i++)
             {

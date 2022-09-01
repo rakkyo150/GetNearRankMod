@@ -10,7 +10,7 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>GetNearRankMod</RootNamespace>
     <AssemblyName>GetNearRankMod</AssemblyName>
-    <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <DebugSymbols>true</DebugSymbols>
     <DebugType>portable</DebugType>
@@ -20,6 +20,7 @@
     <!--<PathMap>$(AppOutputBase)=X:\$(AssemblyName)\</PathMap>-->
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)' == 'Debug' ">
     <Optimize>false</Optimize>
@@ -148,6 +149,8 @@
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
     <Compile Include="Data\MapData.cs" />
+    <Compile Include="Static\BSPath.cs" />
+    <Compile Include="FolderMaker.cs" />
     <Compile Include="Utilities\UsersDataGetter.cs" />
     <Compile Include="Managers\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />

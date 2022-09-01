@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using GetNearRankMod.Static;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -74,7 +75,7 @@ namespace GetNearRankMod.Utilities
             // Playlist作成
 
             string _fileName;
-            string _beatSaberPlaylistPath;
+            string _outputPath;
             string hash;
             string name = "";
             string characteristic = "";
@@ -84,7 +85,15 @@ namespace GetNearRankMod.Utilities
             _fileName = dt.ToString("yyyyMMdd") + "-RR" + PluginConfig.Instance.RankRange.ToString() +
             "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
             "-OPR" + PluginConfig.Instance.OthersPageRange;
-            _beatSaberPlaylistPath = $".\\Playlists\\{_fileName}.bplist";
+
+            if (Directory.Exists(BSPath.GetNearRankModFolderPath))
+            {
+                _outputPath = Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
+            }
+            else
+            {
+                _outputPath = Path.Combine(BSPath.PlaylistsPath, $"{_fileName}.bplist");
+            }
 
             Playlist playlistEdit = new Playlist();
             playlistEdit.playlistTitle = _fileName;
@@ -146,7 +155,7 @@ namespace GetNearRankMod.Utilities
             _jsonFinish = JsonConvert.SerializeObject(playlistEdit, Formatting.Indented);
 
 
-            StreamWriter wr = new StreamWriter(_beatSaberPlaylistPath, false);
+            StreamWriter wr = new StreamWriter(_outputPath, false);
             wr.WriteLine(_jsonFinish);
             wr.Close();
         }

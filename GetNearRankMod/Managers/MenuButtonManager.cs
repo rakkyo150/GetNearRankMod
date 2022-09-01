@@ -42,10 +42,9 @@ namespace GetNearRankMod.Managers
             try
             {
                 List<Dictionary<MapData, PPData>> othersPlayResults = new List<Dictionary<MapData, PPData>>();
-
+                
                 iProgress.Report("Getting Your ID");
                 await _usersDataGetter.GetYourId();
-
 
                 iProgress.Report("Getting Your Local Rank");
                 int yourCountryRank = await _usersDataGetter.GetYourJapanRank();

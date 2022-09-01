@@ -3,6 +3,7 @@ using IPA;
 using IPA.Config;
 using IPA.Config.Stores;
 using SiraUtil.Zenject;
+using System;
 using IPALogger = IPA.Logging.Logger;
 
 namespace GetNearRankMod
@@ -26,6 +27,21 @@ namespace GetNearRankMod
             PluginConfig.Instance = cfgProvider.Generated<PluginConfig>();
             BSMLSettings.instance.AddSettingsMenu("GetNearRankMod", $"GetNearRankMod.Settings.bsml", SettingController.instance);
             injector.Install<Installers.MenuButtonInstaller>(Location.Menu);
+
+            // 万が一エラーだして止まるのはまずいので、丁寧に例外処理いれておく
+            try
+            {
+                // 基本敵に初回だけ
+                // ボタン押してからやInitializeからでもPlaylistManagerにフォルダが認識されないし認識させるのも難しい
+                // グローバル変数も特にないのでメモリリークの心配も多分ない
+                FolderMaker folderMaker = new FolderMaker();
+                folderMaker.MakeGetNearRankModFolder();
+            }
+            catch(Exception ex)
+            {
+                Logger.log.Error(ex.Message);
+            }
+
             Logger.log.Info("GetNearRankMod initialized.");
         }
 

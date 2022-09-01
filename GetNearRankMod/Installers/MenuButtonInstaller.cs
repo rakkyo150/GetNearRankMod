@@ -10,7 +10,7 @@ namespace GetNearRankMod.Installers
         {
             Container.Bind<UsersDataGetter>().AsSingle();
             Container.Bind<PlaylistMaker>().AsSingle();
-
+            
             Container.BindInterfacesAndSelfTo<MenuButtonManager>().AsSingle();
         }
     }
