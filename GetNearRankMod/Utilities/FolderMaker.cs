@@ -29,6 +29,11 @@ namespace GetNearRankMod
                    ExistsGetNearRankPlaylistWords(fileName) &&
                     fileName.EndsWith(".bplist"))
                 {
+                    if(File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
+                    {
+                        File.Delete(fileName);
+                    }
+                    
                     playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                 }
             }
