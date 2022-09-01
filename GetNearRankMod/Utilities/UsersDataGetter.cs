@@ -59,7 +59,7 @@ namespace GetNearRankMod.Utilities
             int branchRank = 0;
 
             HashSet<PlayerInfo> allPlayerInfoOnRankPage = await GetJapanesePlayerInfo(basePageEndpoint);
-            HashSet<PlayerInfo> targetdPlayerInfo=new HashSet<PlayerInfo>();
+            HashSet<PlayerInfo> targetdPlayerInfo = new HashSet<PlayerInfo>();
 
             lowRank = yourCountryRank + PluginConfig.Instance.RankRange;
             highRank = yourCountryRank - PluginConfig.Instance.RankRange;
@@ -100,13 +100,13 @@ namespace GetNearRankMod.Utilities
                 }
             }
 
-            foreach(PlayerInfo playerInfo in allPlayerInfoOnRankPage)
+            foreach (PlayerInfo playerInfo in allPlayerInfoOnRankPage)
             {
-                if(highRank<=int.Parse(playerInfo.Rank) && int.Parse(playerInfo.Rank) <= lowRank)
+                if (highRank <= int.Parse(playerInfo.Rank) && int.Parse(playerInfo.Rank) <= lowRank)
                 {
                     // トッププレイヤー用
-                    if (playerInfo.Rank==yourCountryRank.ToString()) continue;
-                    
+                    if (playerInfo.Rank == yourCountryRank.ToString()) continue;
+
                     targetdPlayerInfo.Add(playerInfo);
                 }
             }
@@ -115,25 +115,25 @@ namespace GetNearRankMod.Utilities
         }
 
         public async Task<Dictionary<MapData, PPData>> GetPlayResult(PlayerInfo playerInfo, int pageRange)
-        {          
+        {
             int topScoresPageNumber = 1;
             var playResults = new Dictionary<MapData, PPData>();
 
             for (int i = 0; i + topScoresPageNumber <= pageRange; i++)
             {
                 string playerScoresEndpoint = $"https://scoresaber.com/api/player/{playerInfo.Id}/scores?page={i + topScoresPageNumber}";
-                
+
                 HttpClient client = new HttpClient();
                 HttpResponseMessage response = await client.GetAsync(playerScoresEndpoint);
                 string jsonString = await response.Content.ReadAsStringAsync();
-                
+
                 dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
                 foreach (var jsonScores in jsonDynamic["playerScores"])
                 {
                     string mapHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"", "");
                     string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficulty"]["difficultyRaw"]);
-                    MapData mapData=new MapData(mapHash, difficulty);
+                    MapData mapData = new MapData(mapHash, difficulty);
                     string pp = JsonConvert.SerializeObject(jsonScores["score"]["pp"]);
                     PPData pPData = new PPData(pp);
 
@@ -163,7 +163,7 @@ namespace GetNearRankMod.Utilities
             {
                 string rank = JsonConvert.SerializeObject(jd["countryRank"]);
                 string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"", "");
-                PlayerInfo playerInfo=new PlayerInfo(rank, id);
+                PlayerInfo playerInfo = new PlayerInfo(rank, id);
 
                 playerInfoList.Add(playerInfo);
             }

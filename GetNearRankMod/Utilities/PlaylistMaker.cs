@@ -34,7 +34,7 @@ namespace GetNearRankMod.Utilities
             // PP比較して負けてたらマップデータに追加
 
             List<MapData> mapDataList = new List<MapData>();
-            
+
             foreach (var otherDictionary in others)
             {
                 foreach (var keyDictionary in otherDictionary.Keys)
