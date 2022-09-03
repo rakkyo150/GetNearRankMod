@@ -33,11 +33,11 @@ namespace GetNearRankMod.Utilities
     internal class PlaylistMaker
     {
 
-        public Dictionary<MapData,PPData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
+        public Dictionary<MapData, PPData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
         {
             // PP比較して負けてたらマップデータに追加
 
-            Dictionary<MapData,PPData> mapDataAndPPDiffList = new Dictionary<MapData, PPData>();
+            Dictionary<MapData, PPData> mapDataAndPPDiffList = new Dictionary<MapData, PPData>();
 
             foreach (Dictionary<MapData, PPData> otherDictionary in others)
             {
@@ -56,7 +56,7 @@ namespace GetNearRankMod.Utilities
                         if (!mapDataAndPPDiffList.ContainsKey(otherMapData))
                         {
                             pPDiff = new PPData((otherPP.PP - yourPP.PP).ToString());
-                            mapDataAndPPDiffList.Add(otherMapData,pPDiff);
+                            mapDataAndPPDiffList.Add(otherMapData, pPDiff);
                             Logger.log.Debug($"{otherMapData.MapHash},{otherMapData.Difficulty},{pPDiff.PP}PP");
                             continue;
                         }
@@ -70,7 +70,7 @@ namespace GetNearRankMod.Utilities
                     if (mapDataAndPPDiffList.ContainsKey(otherMapData)) continue;
 
                     pPDiff = new PPData((-1).ToString());
-                    mapDataAndPPDiffList.Add(otherMapData,pPDiff);
+                    mapDataAndPPDiffList.Add(otherMapData, pPDiff);
                     Logger.log.Debug($"{otherMapData.MapHash},{otherMapData.Difficulty}, MissingData");
                 }
             }
@@ -82,12 +82,12 @@ namespace GetNearRankMod.Utilities
         {
             Dictionary<MapData, PPData> sortedMapDataAndPPDiff = new Dictionary<MapData, PPData>();
             sortedMapDataAndPPDiff = mapDataAndPPDiffList.OrderByDescending(x => x.Value.PP)
-                .ToDictionary(pair=>pair.Key,pair=>pair.Value);
+                .ToDictionary(pair => pair.Key, pair => pair.Value);
 
             return sortedMapDataAndPPDiff;
         }
 
-        public void MakePlaylist(Dictionary<MapData,PPData> mapDataList)
+        public void MakePlaylist(Dictionary<MapData, PPData> mapDataList)
         {
             // Playlist作成
 

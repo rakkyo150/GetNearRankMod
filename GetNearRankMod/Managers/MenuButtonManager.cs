@@ -66,11 +66,11 @@ namespace GetNearRankMod.Managers
                 }
 
                 iProgress.Report("Making Lower PP Map List");
-                Dictionary<MapData,PPData> MapDataAndPPDiffList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
+                Dictionary<MapData, PPData> MapDataAndPPDiffList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
 
                 iProgress.Report("Sort Playlist by PPDiff");
                 Dictionary<MapData, PPData> SortedMapDataAndPPDiffList = _playlistMaker.SortPlaylist(MapDataAndPPDiffList);
-                
+
                 iProgress.Report("Making Playllist");
                 _playlistMaker.MakePlaylist(SortedMapDataAndPPDiffList);
 

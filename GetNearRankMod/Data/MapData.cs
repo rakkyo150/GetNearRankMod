@@ -1,6 +1,4 @@
-﻿using System.Xml.Linq;
-
-namespace GetNearRankMod
+﻿namespace GetNearRankMod
 {
     internal class MapData
     {
@@ -35,7 +33,7 @@ namespace GetNearRankMod
             if (other == null) return false;
 
             // 何が同じときに、「同じ」と判断してほしいかを記述する
-            return this.SongName==other.SongName &&
+            return this.SongName == other.SongName &&
                     this.MapHash == other.MapHash &&
                     this.Difficulty == other.Difficulty;
         }
