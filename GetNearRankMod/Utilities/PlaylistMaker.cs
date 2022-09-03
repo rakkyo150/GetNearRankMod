@@ -36,34 +36,30 @@ namespace GetNearRankMod.Utilities
 
             List<MapData> mapDataList = new List<MapData>();
 
-            foreach (var otherDictionary in others)
+            foreach (Dictionary<MapData, PPData> otherDictionary in others)
             {
-                foreach (var keyDictionary in otherDictionary.Keys)
-                {
+                foreach (MapData keyDictionary in otherDictionary.Keys)
+                {                    
+                    // MapDataのオーバーライドしたメソッドがないと参照アドレスの比較になるのでダメ
                     if (your.ContainsKey(keyDictionary))
                     {
                         PPData yourPP = your[keyDictionary];
                         PPData otherPP = otherDictionary[keyDictionary];
 
-                        if (otherPP.PP - yourPP.PP < PluginConfig.Instance.PPFilter)
-                        {
-                            continue;
-                        }
+                        if (otherPP.PP - yourPP.PP < PluginConfig.Instance.PPFilter) continue;
 
                         if (!mapDataList.Contains(keyDictionary))
                         {
                             mapDataList.Add(keyDictionary);
                             Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty},{otherPP.PP - yourPP.PP}PP");
+                            continue;
                         }
                     }
-                    else
-                    {
-                        if (!mapDataList.Contains(keyDictionary))
-                        {
-                            mapDataList.Add(keyDictionary);
-                            Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty}, MissingData");
-                        }
-                    }
+
+                    if (mapDataList.Contains(keyDictionary)) continue;
+                        
+                    mapDataList.Add(keyDictionary);
+                    Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty}, MissingData");
                 }
             }
 
