@@ -10,5 +10,10 @@
         }
 
         internal double PP => double.Parse(_pP);
+
+        internal void ChangePP(string pp)
+        {
+            _pP = pp;
+        }
     }
 }

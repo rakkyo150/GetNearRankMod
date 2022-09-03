@@ -66,10 +66,13 @@ namespace GetNearRankMod.Managers
                 }
 
                 iProgress.Report("Making Lower PP Map List");
-                List<MapData> MapDataList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
+                Dictionary<MapData,PPData> MapDataAndPPDiffList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
 
+                iProgress.Report("Sort Playlist by PPDiff");
+                Dictionary<MapData, PPData> SortedMapDataAndPPDiffList = _playlistMaker.SortPlaylist(MapDataAndPPDiffList);
+                
                 iProgress.Report("Making Playllist");
-                _playlistMaker.MakePlaylist(MapDataList);
+                _playlistMaker.MakePlaylist(SortedMapDataAndPPDiffList);
 
                 SongCore.Loader.Instance.RefreshSongs(false);
 

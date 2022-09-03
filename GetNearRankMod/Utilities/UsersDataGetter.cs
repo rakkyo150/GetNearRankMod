@@ -131,9 +131,11 @@ namespace GetNearRankMod.Utilities
 
                 foreach (var jsonScores in jsonDynamic["playerScores"])
                 {
+                    string songName = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songName"]).Replace("\"", "");
                     string mapHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"", "");
                     string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficulty"]["difficultyRaw"]);
-                    MapData mapData = new MapData(mapHash, difficulty);
+                    MapData mapData = new MapData(songName, mapHash, difficulty);
+                    Logger.log.Info(mapData.SongName);
                     string pp = JsonConvert.SerializeObject(jsonScores["score"]["pp"]);
                     PPData pPData = new PPData(pp);
 

@@ -3,6 +3,7 @@ using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Reflection;
 
 namespace GetNearRankMod.Utilities
@@ -17,6 +18,7 @@ namespace GetNearRankMod.Utilities
 
     public class Songs
     {
+        public string songName { get; set; }
         public List<Difficulties> difficulties { get; set; }
         public string hash { get; set; }
     }
@@ -25,48 +27,67 @@ namespace GetNearRankMod.Utilities
     {
         public string name { get; set; }
         public string characteristic { get; set; }
+        public string pPDiff { get; set; }
     }
 
     internal class PlaylistMaker
     {
 
-        public List<MapData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
+        public Dictionary<MapData,PPData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
         {
             // PP比較して負けてたらマップデータに追加
 
-            List<MapData> mapDataList = new List<MapData>();
+            Dictionary<MapData,PPData> mapDataAndPPDiffList = new Dictionary<MapData, PPData>();
 
             foreach (Dictionary<MapData, PPData> otherDictionary in others)
             {
-                foreach (MapData keyDictionary in otherDictionary.Keys)
-                {                    
+                foreach (MapData otherMapData in otherDictionary.Keys)
+                {
+                    PPData pPDiff = new PPData((0).ToString());
+
                     // MapDataのオーバーライドしたメソッドがないと参照アドレスの比較になるのでダメ
-                    if (your.ContainsKey(keyDictionary))
+                    if (your.ContainsKey(otherMapData))
                     {
-                        PPData yourPP = your[keyDictionary];
-                        PPData otherPP = otherDictionary[keyDictionary];
+                        PPData yourPP = your[otherMapData];
+                        PPData otherPP = otherDictionary[otherMapData];
 
                         if (otherPP.PP - yourPP.PP < PluginConfig.Instance.PPFilter) continue;
 
-                        if (!mapDataList.Contains(keyDictionary))
+                        if (!mapDataAndPPDiffList.ContainsKey(otherMapData))
                         {
-                            mapDataList.Add(keyDictionary);
-                            Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty},{otherPP.PP - yourPP.PP}PP");
+                            pPDiff = new PPData((otherPP.PP - yourPP.PP).ToString());
+                            mapDataAndPPDiffList.Add(otherMapData,pPDiff);
+                            Logger.log.Debug($"{otherMapData.MapHash},{otherMapData.Difficulty},{pPDiff.PP}PP");
                             continue;
+                        }
+
+                        if (mapDataAndPPDiffList[otherMapData].PP < (otherPP.PP - yourPP.PP))
+                        {
+                            mapDataAndPPDiffList[otherMapData].ChangePP((otherPP.PP - yourPP.PP).ToString());
                         }
                     }
 
-                    if (mapDataList.Contains(keyDictionary)) continue;
-                        
-                    mapDataList.Add(keyDictionary);
-                    Logger.log.Debug($"{keyDictionary.MapHash},{keyDictionary.Difficulty}, MissingData");
+                    if (mapDataAndPPDiffList.ContainsKey(otherMapData)) continue;
+
+                    pPDiff = new PPData((-1).ToString());
+                    mapDataAndPPDiffList.Add(otherMapData,pPDiff);
+                    Logger.log.Debug($"{otherMapData.MapHash},{otherMapData.Difficulty}, MissingData");
                 }
             }
 
-            return mapDataList;
+            return mapDataAndPPDiffList;
         }
 
-        public void MakePlaylist(List<MapData> mapDataList)
+        internal Dictionary<MapData, PPData> SortPlaylist(Dictionary<MapData, PPData> mapDataAndPPDiffList)
+        {
+            Dictionary<MapData, PPData> sortedMapDataAndPPDiff = new Dictionary<MapData, PPData>();
+            sortedMapDataAndPPDiff = mapDataAndPPDiffList.OrderByDescending(x => x.Value.PP)
+                .ToDictionary(pair=>pair.Key,pair=>pair.Value);
+
+            return sortedMapDataAndPPDiff;
+        }
+
+        public void MakePlaylist(Dictionary<MapData,PPData> mapDataList)
         {
             // Playlist作成
 
@@ -74,9 +95,11 @@ namespace GetNearRankMod.Utilities
 
             string _fileName;
             string _outputPath;
+            string songName = "";
             string hash;
             string name = "";
             string characteristic = "";
+            string pPDiff = "";
             string _jsonFinish;
 
             DateTime dt = DateTime.Now;
@@ -101,11 +124,13 @@ namespace GetNearRankMod.Utilities
             playlistEdit.image = GetCoverImage();
             List<Songs> songsList = new List<Songs>();
 
-            foreach (MapData mapData in mapDataList)
+            foreach (KeyValuePair<MapData, PPData> mapDataAndPPDiff in mapDataList)
             {
-                hash = mapData.MapHash;
-                name = SetDifficulty(name, mapData);
-                characteristic = SetCaracteristic(characteristic, mapData);
+                songName = mapDataAndPPDiff.Key.SongName;
+                hash = mapDataAndPPDiff.Key.MapHash;
+                name = SetDifficulty(name, mapDataAndPPDiff.Key);
+                characteristic = SetCaracteristic(characteristic, mapDataAndPPDiff.Key);
+                pPDiff = mapDataAndPPDiff.Value.PP.ToString();
 
                 Songs songs = new Songs();
                 List<Difficulties> difficultiesList = new List<Difficulties>();
@@ -113,7 +138,9 @@ namespace GetNearRankMod.Utilities
 
                 difficulties.name = name;
                 difficulties.characteristic = characteristic;
+                difficulties.pPDiff = pPDiff;
                 difficultiesList.Add(difficulties);
+                songs.songName = songName;
                 songs.difficulties = difficultiesList;
                 songs.hash = hash;
                 songsList.Add(songs);

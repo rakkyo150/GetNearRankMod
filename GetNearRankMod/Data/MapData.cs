@@ -4,15 +4,18 @@ namespace GetNearRankMod
 {
     internal class MapData
     {
+        private string _songName;
         private string _mapHash;
         private string _difficulty;
 
-        internal MapData(string mapHash, string difficulty)
+        internal MapData(string songName, string mapHash, string difficulty)
         {
+            _songName = songName;
             _mapHash = mapHash;
             _difficulty = difficulty;
         }
 
+        internal string SongName => _songName;
         internal string MapHash => _mapHash;
         internal string Difficulty => _difficulty;
 
@@ -20,7 +23,8 @@ namespace GetNearRankMod
         public override int GetHashCode()
         {
             // C#では^演算子でXOR(排他的論理和)でビット演算するのが普通
-            return MapHash.GetHashCode() ^
+            return SongName.GetHashCode() ^
+                    MapHash.GetHashCode() ^
                     Difficulty.GetHashCode();
         }
 
@@ -31,7 +35,8 @@ namespace GetNearRankMod
             if (other == null) return false;
 
             // 何が同じときに、「同じ」と判断してほしいかを記述する
-            return this.MapHash == other.MapHash &&
+            return this.SongName==other.SongName &&
+                    this.MapHash == other.MapHash &&
                     this.Difficulty == other.Difficulty;
         }
     }
