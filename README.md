@@ -5,8 +5,10 @@
 Quest2などのスタンドアローン機のみでBeat SaberをしておりPCModが使えない環境の人で、WindowsやMacをお使いの方は、ツール版の[GetNearRankScript](https://github.com/rakkyo150/GetNearRankScript)を利用してください。<br>
 GetNearRankScriptも動かすことができない環境の方は、Docker環境があれば使える[GetNearRankDocker](https://github.com/rakkyo150/GetNearRankDocker)をお使いください。<br>
 
-現状、日本ローカルランク基準でしか正常に動作しません。<br>
-要望などがあれば、ワールドランク基準や他ローカルランク基準でも動作するようにするかもしれません。
+~~現状、日本ローカルランク基準でしか正常に動作しません。<br>
+要望などがあれば、ワールドランク基準や他ローカルランク基準でも動作するようにするかもしれません。~~<br>
+**v2.9.0から日本以外の方でも使えるようになりました。<br>**
+また、グローバルランク基準でも動かせるようになりました(デフォルトはローカルランク基準になっています)。
 
 ## 初期設定
 ~~**初期設定は必須です。**<br>
@@ -50,3 +52,9 @@ Beat Saberのゲーム内ホーム画面の下の歯車→MOD SETTINGS→GetNear
 |`PPFilter`|何PP差以上を対象とするか|
 |`YourPageRange`|自分のトップスコア何ページ目までの情報を取得するか|
 |`OthersPageRange`|ライバルのトップスコア何ページ目までの情報を取得するか|
+|`GlobalMode`|グローバルランク基準でプレイリストを作成します|
+|`FolderMode`|プレイリストをサブフォルダで管理できます|
+
+Beat Saber/UserData/GetNearRankMod.jsonを直接書き換えて変更する設定
+|項目|説明|
+|`FolderName`|サブフォルダ名を変更できます|
