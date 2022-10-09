@@ -1,6 +1,4 @@
-﻿using System.IO;
-
-namespace GetNearRankMod.Path
+﻿namespace GetNearRankMod.Path
 {
     internal static class BSPath
     {

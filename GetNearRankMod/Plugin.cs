@@ -36,10 +36,8 @@ namespace GetNearRankMod
                 return;
             }
 
-            // 万が一エラーだして止まるのはまずいので、丁寧に例外処理いれておく
             try
             {
-                // 基本敵に初回だけ
                 // ボタン押してからやInitializeからでもPlaylistManagerにフォルダが認識されないし認識させるのも難しい
                 // グローバル変数も特にないのでメモリリークの心配も多分ない
                 FolderMaker folderMaker = new FolderMaker();

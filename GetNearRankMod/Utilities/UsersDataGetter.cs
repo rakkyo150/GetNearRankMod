@@ -1,5 +1,4 @@
-﻿using IPA.Logging;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -28,7 +27,7 @@ namespace GetNearRankMod.Utilities
 
         public async Task<int> GetYourCountryAndRank()
         {
-            string yourRankStr = String.Empty;
+            string yourRankStr = string.Empty;
             int yourCountryRank = int.MinValue;
 
             string yourBasicPlayerInfoEndpoint = $"https://scoresaber.com/api/player/{PluginConfig.Instance.YourId}/basic";
@@ -132,9 +131,9 @@ namespace GetNearRankMod.Utilities
                 }
             }
 
-            foreach(var playerInfo in targetdPlayersInfo)
+            foreach (var playerInfo in targetdPlayersInfo)
             {
-                Logger.log.Info("rank-" + playerInfo.Rank + "-" + "id-"+ playerInfo.Id);
+                Logger.log.Info("rank-" + playerInfo.Rank + "-" + "id-" + playerInfo.Id);
             }
 
             return targetdPlayersInfo;
@@ -188,11 +187,11 @@ namespace GetNearRankMod.Utilities
 
             foreach (var jd in jsonDynamic["players"])
             {
-                string rank=String.Empty;
+                string rank = string.Empty;
 
                 if (PluginConfig.Instance.GlobalMode)
                 {
-                    rank= JsonConvert.SerializeObject(jd["rank"]);
+                    rank = JsonConvert.SerializeObject(jd["rank"]);
                 }
                 else
                 {
