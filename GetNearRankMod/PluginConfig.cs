@@ -71,7 +71,8 @@ namespace GetNearRankMod
             PropertyChanged -= PropertyChangedMethod;
         }
 
-        public string YourId { get; set; } = "";
+        public string YourId { get; set; } = string.Empty;
+        public string YourCountry { get; set; } = string.Empty;
         public int RankRange { get; set; } = 3;
         public int PPFilter { get; set; } = 20;
         public int YourPageRange { get; set; } = 10;

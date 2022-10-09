@@ -1,4 +1,4 @@
-﻿using GetNearRankMod.Managers;
+﻿using GetNearRankMod.Button;
 using GetNearRankMod.Utilities;
 using Zenject;
 

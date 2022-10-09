@@ -141,19 +141,19 @@
   <ItemGroup>
     <Compile Include="Installers\MenuButtonInstaller.cs" />
     <Compile Include="Logger.cs" />
-    <Compile Include="Data\PlayerInfo.cs" />
-    <Compile Include="Data\PPData.cs" />
+    <Compile Include="Structure\PlayerInfo.cs" />
+    <Compile Include="Structure\PPData.cs" />
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Data\MapData.cs" />
-    <Compile Include="Static\BSPath.cs" />
+    <Compile Include="Structure\MapData.cs" />
+    <Compile Include="Path\BSPath.cs" />
     <Compile Include="Utilities\FolderMaker.cs" />
     <Compile Include="Utilities\SameNamePlaylistDeleter.cs" />
     <Compile Include="Utilities\UsersDataGetter.cs" />
-    <Compile Include="Managers\MenuButtonManager.cs" />
+    <Compile Include="Button\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />
     <Compile Include="Plugin.cs" />
     <Compile Include="PluginConfig.cs" />

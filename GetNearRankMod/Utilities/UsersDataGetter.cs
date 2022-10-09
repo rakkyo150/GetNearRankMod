@@ -1,4 +1,5 @@
-﻿using Newtonsoft.Json;
+﻿using IPA.Logging;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
@@ -25,7 +26,7 @@ namespace GetNearRankMod.Utilities
             Logger.log.Debug("Your Id " + PluginConfig.Instance.YourId);
         }
 
-        public async Task<int> GetYourRank()
+        public async Task<int> GetYourCountryAndRank()
         {
             string yourRankStr = String.Empty;
             int yourCountryRank = int.MinValue;
@@ -37,6 +38,10 @@ namespace GetNearRankMod.Utilities
             string jsonString = await response.Content.ReadAsStringAsync();
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
+
+            PluginConfig.Instance.YourCountry = JsonConvert.SerializeObject(jsonDynamic["country"]);
+            PluginConfig.Instance.YourCountry = PluginConfig.Instance.YourCountry.Replace("\"", "");
+            Logger.log.Info(PluginConfig.Instance.YourCountry);
 
             if (PluginConfig.Instance.GlobalMode)
             {
@@ -54,7 +59,7 @@ namespace GetNearRankMod.Utilities
             return yourCountryRank;
         }
 
-        public async Task<HashSet<PlayerInfo>> GetTargetedPlayerInfo(int yourRank)
+        public async Task<HashSet<PlayerInfo>> GetTargetedPlayersInfo(int yourRank)
         {
             int yourRankPageNumber = 1 + (yourRank - 1) / 50;
 
@@ -64,9 +69,9 @@ namespace GetNearRankMod.Utilities
 
             if (!PluginConfig.Instance.GlobalMode)
             {
-                basePageEndpoint += "&countries=jp";
-                lowerRankPageEndpoint += "&countries=jp";
-                higherRankPageEndpoint += "&countries=jp";
+                basePageEndpoint += $"&countries={PluginConfig.Instance.YourCountry}";
+                lowerRankPageEndpoint += $"&countries={PluginConfig.Instance.YourCountry}";
+                higherRankPageEndpoint += $"&countries={PluginConfig.Instance.YourCountry}";
             }
 
             int lowRank;
@@ -75,7 +80,7 @@ namespace GetNearRankMod.Utilities
             int branchRank = 0;
 
             HashSet<PlayerInfo> allPlayerInfoOnRankPage = await GetPlayerInfo(basePageEndpoint);
-            HashSet<PlayerInfo> targetdPlayerInfo = new HashSet<PlayerInfo>();
+            HashSet<PlayerInfo> targetdPlayersInfo = new HashSet<PlayerInfo>();
 
             lowRank = yourRank + PluginConfig.Instance.RankRange;
             highRank = yourRank - PluginConfig.Instance.RankRange;
@@ -123,11 +128,16 @@ namespace GetNearRankMod.Utilities
                     // トッププレイヤー用
                     if (playerInfo.Rank == yourRank.ToString()) continue;
 
-                    targetdPlayerInfo.Add(playerInfo);
+                    targetdPlayersInfo.Add(playerInfo);
                 }
             }
 
-            return targetdPlayerInfo;
+            foreach(var playerInfo in targetdPlayersInfo)
+            {
+                Logger.log.Info("rank-" + playerInfo.Rank + "-" + "id-"+ playerInfo.Id);
+            }
+
+            return targetdPlayersInfo;
         }
 
         public async Task<Dictionary<MapData, PPData>> GetPlayResult(PlayerInfo playerInfo, int pageRange)
@@ -151,7 +161,6 @@ namespace GetNearRankMod.Utilities
                     string mapHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"", "");
                     string difficulty = JsonConvert.SerializeObject(jsonScores["leaderboard"]["difficulty"]["difficultyRaw"]);
                     MapData mapData = new MapData(songName, mapHash, difficulty);
-                    Logger.log.Info(mapData.SongName);
                     string pp = JsonConvert.SerializeObject(jsonScores["score"]["pp"]);
                     PPData pPData = new PPData(pp);
 
@@ -198,7 +207,7 @@ namespace GetNearRankMod.Utilities
 
             if (playerInfoList == null)
             {
-                Logger.log.Info($"No Country Rank and Id at {rankPagesEndpoint}");
+                Logger.log.Info($"No Rank and Id at {rankPagesEndpoint}");
             }
 
             return playerInfoList;

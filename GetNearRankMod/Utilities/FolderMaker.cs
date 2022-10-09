@@ -1,4 +1,4 @@
-﻿using GetNearRankMod.Static;
+﻿using GetNearRankMod.Path;
 using System;
 using System.Collections.Generic;
 using System.Globalization;
@@ -29,16 +29,16 @@ namespace GetNearRankMod
                     continue;
                 }
 
-                if (!File.Exists(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
+                if (!File.Exists(System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}")))
                 {
-                    playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                    playlistFileInfo.MoveTo(System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                     continue;
                 }
 
                 try
                 {
-                    File.Delete(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
-                    playlistFileInfo.MoveTo(Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                    File.Delete(System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
+                    playlistFileInfo.MoveTo(System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{fileName}"));
                 }
                 catch (Exception ex)
                 {

@@ -1,4 +1,4 @@
-﻿using GetNearRankMod.Static;
+﻿using GetNearRankMod.Path;
 using System;
 using System.IO;
 

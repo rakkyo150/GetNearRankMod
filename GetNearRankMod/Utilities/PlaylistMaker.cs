@@ -1,4 +1,4 @@
-﻿using GetNearRankMod.Static;
+﻿using GetNearRankMod.Path;
 using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
@@ -111,11 +111,11 @@ namespace GetNearRankMod.Utilities
 
             if (Directory.Exists(BSPath.GetNearRankModFolderPath) && PluginConfig.Instance.FolderMode)
             {
-                _outputPath = Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
+                _outputPath = System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
             }
             else
             {
-                _outputPath = Path.Combine(BSPath.PlaylistsPath, $"{_fileName}.bplist");
+                _outputPath = System.IO.Path.Combine(BSPath.PlaylistsPath, $"{_fileName}.bplist");
             }
 
             Playlist playlistEdit = new Playlist();

@@ -6,7 +6,7 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using Zenject;
 
-namespace GetNearRankMod.Managers
+namespace GetNearRankMod.Button
 {
     internal class MenuButtonManager : IInitializable, IDisposable
     {
@@ -46,12 +46,15 @@ namespace GetNearRankMod.Managers
                 iProgress.Report("Getting Your ID");
                 await _usersDataGetter.GetYourId();
 
+                // For test
+                PluginConfig.Instance.YourId = "76561198404774259";
+
                 iProgress.Report("Getting Your Rank");
-                int yourRank = await _usersDataGetter.GetYourRank();
+                int yourRank = await _usersDataGetter.GetYourCountryAndRank();
 
 
                 iProgress.Report("Getting Rivals' Player Info");
-                HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetTargetedPlayerInfo(yourRank);
+                HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetTargetedPlayersInfo(yourRank);
 
                 iProgress.Report("Getting Your Play Results");
                 PlayerInfo yourPlayerInfo = new PlayerInfo(yourRank.ToString(), PluginConfig.Instance.YourId);
@@ -60,7 +63,6 @@ namespace GetNearRankMod.Managers
                 iProgress.Report($"Getting Rivals' Play Results");
                 foreach (PlayerInfo targetedPlayerInfo in targetedPlayerInfoList)
                 {
-                    Logger.log.Debug("Targeted Id " + targetedPlayerInfo.Id);
                     Dictionary<MapData, PPData> otherPlayResult = await _usersDataGetter.GetPlayResult(targetedPlayerInfo, PluginConfig.Instance.OthersPageRange);
                     othersPlayResults.Add(otherPlayResult);
                 }
