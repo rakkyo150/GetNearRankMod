@@ -1,6 +1,6 @@
 # GetNearRankMod
 
-## “ú–{lŒü‚¯README‚Í[‚±‚¿‚ç](README.md)
+## æ—¥æœ¬äººå‘ã‘READMEã¯[ã“ã¡ã‚‰](README.md)
 
 ## Introduction
 This is a mod that retrieves ranked songs that people near you in rank have taken more PP than you and makes a playlist of them, referring to [GetNearRank](https://github.com/culage/GetNearRank). <br>
@@ -10,13 +10,13 @@ it can now work on a global rank basis (The default is local rank criteria).
 ## How to use
 Just press NEAR RANK PLAYLIST on the left side of Beat Saber's home menu.
 
-1. Press
+1. Press<br>
 ![screenshot 2021-10-15 022423](https://user-images.githubusercontent.com/86054813/137366553-a565529a-0d47-4335-a632-029e226efcd6.png)
 
-2. Wait a minute
+2. Wait a minute<br>
 ![screenshot 2021-10-15 022232](https://user-images.githubusercontent.com/86054813/137366693-0ab5dbcf-9149-4274-a504-505fa87d4c66.png)
 
-3. Check after reloading is done
+3. Check after reloading is done<br>
 ![screenshot 2021-10-15 022331](https://user-images.githubusercontent.com/86054813/137366817-af0bdbbf-99ed-493d-a31a-3acbdb529f75.png)
 
 If an error occurs, it will also be indicated as "Error".<br>
@@ -35,6 +35,6 @@ You can change the settings from the Gear -> MOD SETTINGS -> GetNearRankMod at t
 |`FolderMode`|Playlists can be managed in subfolders|
 
 Setup to change Beat Saber/UserData/GetNearRankMod.json by rewriting it directly.
-|€–Ú|à–¾|
+|é …ç›®|èª¬æ˜|
 |:--|:--|
 |`FolderName`|Subfolders can be renamed|
