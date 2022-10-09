@@ -62,6 +62,18 @@ namespace GetNearRankMod.Views
                 NotifyPropertyChanged(nameof(OthersPageRange));
             }
         }
+
+        [UIValue("GlobalMode")]
+        public bool GlobalMode
+        {
+            get => PluginConfig.Instance.GlobalMode;
+            set
+            {
+                PluginConfig.Instance.GlobalMode = value;
+                NotifyPropertyChanged(nameof(GlobalMode));
+            }
+        }
+
         [UIValue("FolderMode")]
         public bool FolderMode
         {

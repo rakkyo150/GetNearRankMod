@@ -3,5 +3,6 @@
   <increment-setting text='PP Filter' value='PPFilter' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
   <increment-setting text='Your Page Range' value='YourPageRange' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
   <increment-setting text='Others Page Range' value='OthersPageRange' increment='1' min='1' integer-only='true' apply-on-change='true' bind-value='true'></increment-setting>
+  <bool-setting text='Global Mode' value='GlobalMode' apply-on-change='true' bind-value='true'></bool-setting>
   <bool-setting text='Folder Mode' value='FolderMode' apply-on-change='true' bind-value='true'></bool-setting>
 </settings-container>

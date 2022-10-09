@@ -25,9 +25,10 @@ namespace GetNearRankMod.Utilities
             Logger.log.Debug("Your Id " + PluginConfig.Instance.YourId);
         }
 
-        public async Task<int> GetYourJapanRank()
+        public async Task<int> GetYourRank()
         {
-            int yourCountryRank;
+            string yourRankStr = String.Empty;
+            int yourCountryRank = int.MinValue;
 
             string yourBasicPlayerInfoEndpoint = $"https://scoresaber.com/api/player/{PluginConfig.Instance.YourId}/basic";
 
@@ -37,32 +38,47 @@ namespace GetNearRankMod.Utilities
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-            string yourCountryRankStr = JsonConvert.SerializeObject(jsonDynamic["countryRank"]);
-            yourCountryRank = Int32.Parse(yourCountryRankStr);
-
-            Logger.log.Debug("Your Local Rank " + yourCountryRank);
+            if (PluginConfig.Instance.GlobalMode)
+            {
+                yourRankStr = JsonConvert.SerializeObject(jsonDynamic["rank"]);
+                yourCountryRank = Int32.Parse(yourRankStr);
+                Logger.log.Debug("Your Local Rank " + yourCountryRank);
+            }
+            else
+            {
+                yourRankStr = JsonConvert.SerializeObject(jsonDynamic["countryRank"]);
+                yourCountryRank = Int32.Parse(yourRankStr);
+                Logger.log.Debug("Your Global Rank " + yourCountryRank);
+            }
 
             return yourCountryRank;
         }
 
-        public async Task<HashSet<PlayerInfo>> GetJapanTargetedPlayerInfo(int yourCountryRank)
+        public async Task<HashSet<PlayerInfo>> GetTargetedPlayerInfo(int yourRank)
         {
-            int yourCountryRankPageNumber = 1 + (yourCountryRank - 1) / 50;
+            int yourRankPageNumber = 1 + (yourRank - 1) / 50;
 
-            string basePageEndpoint = $"https://scoresaber.com/api/players?page={yourCountryRankPageNumber}&countries=jp";
-            string lowerRankPageEndpoint = $"https://scoresaber.com/api/players?page={yourCountryRankPageNumber + 1}&countries=jp";
-            string higherRankPageEndpoint = $"https://scoresaber.com/api/players?page={yourCountryRankPageNumber - 1}&countries=jp";
+            string basePageEndpoint = $"https://scoresaber.com/api/players?page={yourRankPageNumber}";
+            string lowerRankPageEndpoint = $"https://scoresaber.com/api/players?page={yourRankPageNumber + 1}";
+            string higherRankPageEndpoint = $"https://scoresaber.com/api/players?page={yourRankPageNumber - 1}";
+
+            if (!PluginConfig.Instance.GlobalMode)
+            {
+                basePageEndpoint += "&countries=jp";
+                lowerRankPageEndpoint += "&countries=jp";
+                higherRankPageEndpoint += "&countries=jp";
+            }
 
             int lowRank;
             int highRank;
             bool otherPage = false;
             int branchRank = 0;
 
-            HashSet<PlayerInfo> allPlayerInfoOnRankPage = await GetJapanesePlayerInfo(basePageEndpoint);
+            HashSet<PlayerInfo> allPlayerInfoOnRankPage = await GetPlayerInfo(basePageEndpoint);
             HashSet<PlayerInfo> targetdPlayerInfo = new HashSet<PlayerInfo>();
 
-            lowRank = yourCountryRank + PluginConfig.Instance.RankRange;
-            highRank = yourCountryRank - PluginConfig.Instance.RankRange;
+            lowRank = yourRank + PluginConfig.Instance.RankRange;
+            highRank = yourRank - PluginConfig.Instance.RankRange;
 
             // トッププレイヤー用
             if (highRank <= 0)
@@ -82,9 +98,9 @@ namespace GetNearRankMod.Utilities
 
             if (otherPage)
             {
-                if (branchRank < yourCountryRank)
+                if (branchRank < yourRank)
                 {
-                    HashSet<PlayerInfo> otherPagesResult = await GetJapanesePlayerInfo(higherRankPageEndpoint);
+                    HashSet<PlayerInfo> otherPagesResult = await GetPlayerInfo(higherRankPageEndpoint);
                     foreach (PlayerInfo otherPagesPlayerInfo in otherPagesResult)
                     {
                         allPlayerInfoOnRankPage.Add(otherPagesPlayerInfo);
@@ -92,7 +108,7 @@ namespace GetNearRankMod.Utilities
                 }
                 else
                 {
-                    HashSet<PlayerInfo> otherPagesResult = await GetJapanesePlayerInfo(lowerRankPageEndpoint);
+                    HashSet<PlayerInfo> otherPagesResult = await GetPlayerInfo(lowerRankPageEndpoint);
                     foreach (PlayerInfo otherPagesPlayerInfo in otherPagesResult)
                     {
                         allPlayerInfoOnRankPage.Add(otherPagesPlayerInfo);
@@ -105,7 +121,7 @@ namespace GetNearRankMod.Utilities
                 if (highRank <= int.Parse(playerInfo.Rank) && int.Parse(playerInfo.Rank) <= lowRank)
                 {
                     // トッププレイヤー用
-                    if (playerInfo.Rank == yourCountryRank.ToString()) continue;
+                    if (playerInfo.Rank == yourRank.ToString()) continue;
 
                     targetdPlayerInfo.Add(playerInfo);
                 }
@@ -151,7 +167,7 @@ namespace GetNearRankMod.Utilities
             return playResults;
         }
 
-        public async Task<HashSet<PlayerInfo>> GetJapanesePlayerInfo(string rankPagesEndpoint)
+        public async Task<HashSet<PlayerInfo>> GetPlayerInfo(string rankPagesEndpoint)
         {
             HashSet<PlayerInfo> playerInfoList = new HashSet<PlayerInfo>();
 
@@ -163,7 +179,17 @@ namespace GetNearRankMod.Utilities
 
             foreach (var jd in jsonDynamic["players"])
             {
-                string rank = JsonConvert.SerializeObject(jd["countryRank"]);
+                string rank=String.Empty;
+
+                if (PluginConfig.Instance.GlobalMode)
+                {
+                    rank= JsonConvert.SerializeObject(jd["rank"]);
+                }
+                else
+                {
+                    rank = JsonConvert.SerializeObject(jd["countryRank"]);
+                }
+
                 string id = JsonConvert.SerializeObject(jd["id"]).Replace($"\"", "");
                 PlayerInfo playerInfo = new PlayerInfo(rank, id);
 

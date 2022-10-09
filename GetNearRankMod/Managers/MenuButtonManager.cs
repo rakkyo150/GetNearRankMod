@@ -46,15 +46,15 @@ namespace GetNearRankMod.Managers
                 iProgress.Report("Getting Your ID");
                 await _usersDataGetter.GetYourId();
 
-                iProgress.Report("Getting Your Local Rank");
-                int yourCountryRank = await _usersDataGetter.GetYourJapanRank();
+                iProgress.Report("Getting Your Rank");
+                int yourRank = await _usersDataGetter.GetYourRank();
 
 
                 iProgress.Report("Getting Rivals' Player Info");
-                HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetJapanTargetedPlayerInfo(yourCountryRank);
+                HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetTargetedPlayerInfo(yourRank);
 
                 iProgress.Report("Getting Your Play Results");
-                PlayerInfo yourPlayerInfo = new PlayerInfo(yourCountryRank.ToString(), PluginConfig.Instance.YourId);
+                PlayerInfo yourPlayerInfo = new PlayerInfo(yourRank.ToString(), PluginConfig.Instance.YourId);
                 Dictionary<MapData, PPData> yourPlayResult = await _usersDataGetter.GetPlayResult(yourPlayerInfo, PluginConfig.Instance.YourPageRange);
 
                 iProgress.Report($"Getting Rivals' Play Results");

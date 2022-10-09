@@ -105,7 +105,7 @@ namespace GetNearRankMod.Utilities
             DateTime dt = DateTime.Now;
             _fileName = dt.ToString("yyyyMMdd") + "-RR" + PluginConfig.Instance.RankRange.ToString() +
             "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
-            "-OPR" + PluginConfig.Instance.OthersPageRange;
+            "-OPR" + PluginConfig.Instance.OthersPageRange + "-" + (PluginConfig.Instance.GlobalMode ? "Global" : "Local") ;
 
             sameNamePlaylistDeleter.DeleteSameNamePlaylist(_fileName + ".bplist");
 

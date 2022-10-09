@@ -76,6 +76,7 @@ namespace GetNearRankMod
         public int PPFilter { get; set; } = 20;
         public int YourPageRange { get; set; } = 10;
         public int OthersPageRange { get; set; } = 3;
+        public bool GlobalMode { get; set; } = false;
         public bool FolderMode { get; set; } = true;
         public string FolderName { get; set; } = "GetNearRankMod";
     }

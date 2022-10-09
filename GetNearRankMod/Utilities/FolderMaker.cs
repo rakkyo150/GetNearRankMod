@@ -21,7 +21,7 @@ namespace GetNearRankMod
             {
                 string fileName = playlistFileInfo.Name;
 
-                // GetNearRankModで生成したプレイリストなら
+                // GetNearRankModで生成したプレイリストでないなら
                 if (!DateTime.TryParseExact(fileName.Substring(0, 8), "yyyyMMdd", CultureInfo.CurrentCulture, DateTimeStyles.None, out _) ||
                     !ExistsGetNearRankPlaylistWords(fileName) ||
                     !fileName.EndsWith(".bplist"))
