@@ -47,7 +47,7 @@ namespace GetNearRankMod.Button
                 await _usersDataGetter.GetYourId();
 
                 // For test
-                PluginConfig.Instance.YourId = "76561198404774259";
+                // PluginConfig.Instance.YourId = "76561198404774259";
 
                 iProgress.Report("Getting Your Rank");
                 int yourRank = await _usersDataGetter.GetYourCountryAndRank();

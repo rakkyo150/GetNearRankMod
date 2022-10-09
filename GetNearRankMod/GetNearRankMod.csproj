@@ -151,7 +151,6 @@
     <Compile Include="Structure\MapData.cs" />
     <Compile Include="Path\BSPath.cs" />
     <Compile Include="Utilities\FolderMaker.cs" />
-    <Compile Include="Utilities\SameNamePlaylistDeleter.cs" />
     <Compile Include="Utilities\UsersDataGetter.cs" />
     <Compile Include="Button\MenuButtonManager.cs" />
     <Compile Include="Utilities\PlaylistMaker.cs" />

@@ -32,7 +32,6 @@ namespace GetNearRankMod.Utilities
 
     internal class PlaylistMaker
     {
-
         public Dictionary<MapData, PPData> MakeLowerPPMapList(List<Dictionary<MapData, PPData>> others, Dictionary<MapData, PPData> your)
         {
             // PP比較して負けてたらマップデータに追加
@@ -89,11 +88,6 @@ namespace GetNearRankMod.Utilities
 
         public void MakePlaylist(Dictionary<MapData, PPData> mapDataList)
         {
-            // Playlist作成
-
-            SameNamePlaylistDeleter sameNamePlaylistDeleter = new SameNamePlaylistDeleter();
-
-            string _fileName;
             string _outputPath;
             string songName = "";
             string hash;
@@ -102,24 +96,24 @@ namespace GetNearRankMod.Utilities
             string pPDiff = "";
             string _jsonFinish;
 
-            DateTime dt = DateTime.Now;
-            _fileName = dt.ToString("yyyyMMdd") + "-RR" + PluginConfig.Instance.RankRange.ToString() +
-            "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
-            "-OPR" + PluginConfig.Instance.OthersPageRange + "-" + (PluginConfig.Instance.GlobalMode ? "Global" : "Local") ;
+            string playlistName = string.Empty;
 
-            sameNamePlaylistDeleter.DeleteSameNamePlaylist(_fileName + ".bplist");
+            DateTime dt = DateTime.Now;
+            playlistName = dt.ToString("yyyyMMddHHmm") + "-RR" + PluginConfig.Instance.RankRange.ToString() +
+            "-PF" + PluginConfig.Instance.PPFilter + "-YPR" + PluginConfig.Instance.YourPageRange +
+            "-OPR" + PluginConfig.Instance.OthersPageRange + "-" + (PluginConfig.Instance.GlobalMode ? "Global" : "Local");
 
             if (Directory.Exists(BSPath.GetNearRankModFolderPath) && PluginConfig.Instance.FolderMode)
             {
-                _outputPath = System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{_fileName}.bplist");
+                _outputPath = System.IO.Path.Combine(BSPath.GetNearRankModFolderPath, $"{playlistName}.bplist");
             }
             else
             {
-                _outputPath = System.IO.Path.Combine(BSPath.PlaylistsPath, $"{_fileName}.bplist");
+                _outputPath = System.IO.Path.Combine(BSPath.PlaylistsPath, $"{playlistName}.bplist");
             }
 
             Playlist playlistEdit = new Playlist();
-            playlistEdit.playlistTitle = _fileName;
+            playlistEdit.playlistTitle = playlistName;
             playlistEdit.playlistAuthor = "GetNearRankMod";
             playlistEdit.image = GetCoverImage();
             List<Songs> songsList = new List<Songs>();
@@ -149,7 +143,6 @@ namespace GetNearRankMod.Utilities
             playlistEdit.songs = songsList;
 
             _jsonFinish = JsonConvert.SerializeObject(playlistEdit, Formatting.Indented);
-
 
             StreamWriter wr = new StreamWriter(_outputPath, false);
             wr.WriteLine(_jsonFinish);
