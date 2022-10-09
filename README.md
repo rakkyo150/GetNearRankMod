@@ -59,4 +59,5 @@ Beat Saberのゲーム内ホーム画面の下の歯車→MOD SETTINGS→GetNear
 
 Beat Saber/UserData/GetNearRankMod.jsonを直接書き換えて変更する設定
 |項目|説明|
+|:--|:--|
 |`FolderName`|サブフォルダ名を変更できます|
