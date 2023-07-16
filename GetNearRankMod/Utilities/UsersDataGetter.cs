@@ -78,7 +78,7 @@ namespace GetNearRankMod.Utilities
             bool otherPage = false;
             int branchRank = 0;
 
-            HashSet<PlayerInfo> allPlayerInfoOnRankPage = await GetPlayerInfo(basePageEndpoint);
+            HashSet<PlayerInfo> allPlayersInfoOnRankPage = await GetPlayersInfo(basePageEndpoint);
             HashSet<PlayerInfo> targetdPlayersInfo = new HashSet<PlayerInfo>();
 
             lowRank = yourRank + PluginConfig.Instance.RankRange;
@@ -104,23 +104,23 @@ namespace GetNearRankMod.Utilities
             {
                 if (branchRank < yourRank)
                 {
-                    HashSet<PlayerInfo> otherPagesResult = await GetPlayerInfo(higherRankPageEndpoint);
+                    HashSet<PlayerInfo> otherPagesResult = await GetPlayersInfo(higherRankPageEndpoint);
                     foreach (PlayerInfo otherPagesPlayerInfo in otherPagesResult)
                     {
-                        allPlayerInfoOnRankPage.Add(otherPagesPlayerInfo);
+                        allPlayersInfoOnRankPage.Add(otherPagesPlayerInfo);
                     }
                 }
                 else
                 {
-                    HashSet<PlayerInfo> otherPagesResult = await GetPlayerInfo(lowerRankPageEndpoint);
+                    HashSet<PlayerInfo> otherPagesResult = await GetPlayersInfo(lowerRankPageEndpoint);
                     foreach (PlayerInfo otherPagesPlayerInfo in otherPagesResult)
                     {
-                        allPlayerInfoOnRankPage.Add(otherPagesPlayerInfo);
+                        allPlayersInfoOnRankPage.Add(otherPagesPlayerInfo);
                     }
                 }
             }
 
-            foreach (PlayerInfo playerInfo in allPlayerInfoOnRankPage)
+            foreach (PlayerInfo playerInfo in allPlayersInfoOnRankPage)
             {
                 if (highRank <= int.Parse(playerInfo.Rank) && int.Parse(playerInfo.Rank) <= lowRank)
                 {
@@ -175,7 +175,7 @@ namespace GetNearRankMod.Utilities
             return playResults;
         }
 
-        public async Task<HashSet<PlayerInfo>> GetPlayerInfo(string rankPagesEndpoint)
+        public async Task<HashSet<PlayerInfo>> GetPlayersInfo(string rankPagesEndpoint)
         {
             HashSet<PlayerInfo> playerInfoList = new HashSet<PlayerInfo>();
 
