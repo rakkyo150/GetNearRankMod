@@ -19,7 +19,7 @@ namespace GetNearRankMod.Button
         {
             Progress<string> progress = new Progress<string>(onProgressChanged);
 
-            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async() => await GeneratePlaylist(progress), true);
+            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () => await GeneratePlaylist(progress), true);
             _usersDataGetter = usersDataGetter;
             _playlistMaker = playlistMaker;
         }
@@ -38,8 +38,6 @@ namespace GetNearRankMod.Button
         {
             try
             {
-                _menuButton.Text= "Generating...";
-
                 List<Dictionary<MapData, PPData>> othersPlayResults = new List<Dictionary<MapData, PPData>>();
 
                 iProgress.Report("Getting Your ID");
