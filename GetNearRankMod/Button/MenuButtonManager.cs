@@ -17,9 +17,7 @@ namespace GetNearRankMod.Button
 
         public MenuButtonManager(UsersDataGetter usersDataGetter, PlaylistMaker playlistMaker)
         {
-            Progress<string> progress = new Progress<string>(onProgressChanged);
-
-            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () => await GeneratePlaylist(progress), true);
+            _menuButton = new MenuButton(_buttonName, "Generate Near Rank Playlist", async () => await GeneratePlaylist(), true);
             _usersDataGetter = usersDataGetter;
             _playlistMaker = playlistMaker;
         }
@@ -34,58 +32,59 @@ namespace GetNearRankMod.Button
             MenuButtons.instance.UnregisterButton(_menuButton);
         }
 
-        public async Task GeneratePlaylist(IProgress<string> iProgress)
+        public async Task GeneratePlaylist()
         {
+            IProgress<string> progress = new Progress<string>(onProgressChanged);
             try
             {
                 List<Dictionary<MapData, PPData>> othersPlayResults = new List<Dictionary<MapData, PPData>>();
 
-                iProgress.Report("Getting Your ID");
+                _menuButton.Text = "Getting Your ID";
                 await _usersDataGetter.GetYourId();
 
                 // For test
                 // PluginConfig.Instance.YourId = "76561198404774259";
 
-                iProgress.Report("Getting Your Rank");
+                progress.Report("Getting Your Rank");
                 int yourRank = await _usersDataGetter.GetYourCountryAndRank();
 
 
-                iProgress.Report("Getting Rivals' Player Info");
+                progress.Report("Getting Rivals' Player Info");
                 HashSet<PlayerInfo> targetedPlayerInfoList = await _usersDataGetter.GetTargetedPlayersInfo(yourRank);
 
-                iProgress.Report("Getting Your Play Results");
+                progress.Report("Getting Your Play Results");
                 PlayerInfo yourPlayerInfo = new PlayerInfo(yourRank.ToString(), PluginConfig.Instance.YourId);
                 Dictionary<MapData, PPData> yourPlayResult = await _usersDataGetter.GetPlayResult(yourPlayerInfo, PluginConfig.Instance.YourPageRange);
 
-                iProgress.Report($"Getting Rivals' Play Results");
+                progress.Report($"Getting Rivals' Play Results");
                 foreach (PlayerInfo targetedPlayerInfo in targetedPlayerInfoList)
                 {
                     Dictionary<MapData, PPData> otherPlayResult = await _usersDataGetter.GetPlayResult(targetedPlayerInfo, PluginConfig.Instance.OthersPageRange);
                     othersPlayResults.Add(otherPlayResult);
                 }
 
-                iProgress.Report("Making Lower PP Map List");
+                progress.Report("Making Lower PP Map List");
                 Dictionary<MapData, PPData> MapDataAndPPDiffList = _playlistMaker.MakeLowerPPMapList(othersPlayResults, yourPlayResult);
 
-                iProgress.Report("Sort Playlist by PPDiff");
+                progress.Report("Sort Playlist by PPDiff");
                 Dictionary<MapData, PPData> SortedMapDataAndPPDiffList = _playlistMaker.SortPlaylist(MapDataAndPPDiffList);
 
-                iProgress.Report("Making Playllist");
+                progress.Report("Making Playllist");
                 _playlistMaker.MakePlaylist(SortedMapDataAndPPDiffList);
 
                 SongCore.Loader.Instance.RefreshSongs(false);
 
-                iProgress.Report("Success!");
+                progress.Report("Success!");
             }
             catch (Exception e)
             {
-                iProgress.Report("Error");
+                progress.Report("Error");
                 Logger.log.Error("Error Message: " + e.Message);
             }
             finally
             {
                 await Task.Delay(3000);
-                iProgress.Report(_buttonName);
+                progress.Report(_buttonName);
             }
         }
 

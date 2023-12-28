@@ -2,14 +2,13 @@
 using System;
 using System.Collections.Generic;
 using System.Net.Http;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace GetNearRankMod.Utilities
 {
     internal class UsersDataGetter
     {
-        // 新API対応
-
         private readonly IPlatformUserModel _userModel;
 
         private UsersDataGetter(IPlatformUserModel userModel)
@@ -19,7 +18,7 @@ namespace GetNearRankMod.Utilities
 
         public async Task GetYourId()
         {
-            var userId = await _userModel.GetUserInfo();
+            var userId = await _userModel.GetUserInfo(CancellationToken.None);
             PluginConfig.Instance.YourId = userId.platformUserId;
 
             Logger.log.Debug("Your Id " + PluginConfig.Instance.YourId);
