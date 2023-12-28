@@ -1,9 +1,10 @@
-﻿using BeatSaberMarkupLanguage;
-using BeatSaberMarkupLanguage.MenuButtons;
+﻿using BeatSaberMarkupLanguage.MenuButtons;
 using GetNearRankMod.Utilities;
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
+using TMPro;
+using UnityEngine;
 using Zenject;
 
 namespace GetNearRankMod.Button
@@ -14,6 +15,7 @@ namespace GetNearRankMod.Button
         internal readonly MenuButton _menuButton;
         private readonly UsersDataGetter _usersDataGetter;
         private readonly PlaylistMaker _playlistMaker;
+        private TextMeshPro progressStatus;
 
         public MenuButtonManager(UsersDataGetter usersDataGetter, PlaylistMaker playlistMaker)
         {
@@ -35,11 +37,14 @@ namespace GetNearRankMod.Button
         public async Task GeneratePlaylist()
         {
             IProgress<string> progress = new Progress<string>(onProgressChanged);
+            progressStatus = new GameObject("progressStatus").AddComponent<TextMeshPro>();
+            progressStatus.transform.position = new Vector3(0, 3.1f, 4.2f);
+            progressStatus.fontSize = 5;
+            progressStatus.alignment = TextAlignmentOptions.Center;
             try
             {
                 List<Dictionary<MapData, PPData>> othersPlayResults = new List<Dictionary<MapData, PPData>>();
 
-                _menuButton.Text = "Getting Your ID";
                 await _usersDataGetter.GetYourId();
 
                 // For test
@@ -85,12 +90,13 @@ namespace GetNearRankMod.Button
             {
                 await Task.Delay(3000);
                 progress.Report(_buttonName);
+                GameObject.Destroy(progressStatus);
             }
         }
 
         internal void onProgressChanged(string debug)
         {
-            _menuButton.Text = debug;
+            progressStatus.text = debug;
             Logger.log.Debug(debug);
         }
     }
