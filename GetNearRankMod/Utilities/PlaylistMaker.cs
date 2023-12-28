@@ -197,9 +197,9 @@ namespace GetNearRankMod.Utilities
         {
             try
             {
-                using (var stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"GetNearRankMod.Resources.GetNearRankModImage.png"))
+                using (Stream stream = Assembly.GetExecutingAssembly().GetManifestResourceStream($"GetNearRankMod.Resources.GetNearRankModImage.png"))
                 {
-                    var b = new byte[stream.Length];
+                    byte[] b = new byte[stream.Length];
                     stream.Read(b, 0, (int)stream.Length);
                     return Convert.ToBase64String(b);
                 }

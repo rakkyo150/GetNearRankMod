@@ -12,7 +12,7 @@ namespace GetNearRankMod.Views
         public void SyncWithPluginConfig(string propetyName)
         {
             System.Reflection.PropertyInfo[] thisPropetyInfo = typeof(SettingController).GetProperties();
-            foreach (var propertyInfo in thisPropetyInfo)
+            foreach (System.Reflection.PropertyInfo propertyInfo in thisPropetyInfo)
             {
                 if (propertyInfo.Name != propetyName) continue;
 

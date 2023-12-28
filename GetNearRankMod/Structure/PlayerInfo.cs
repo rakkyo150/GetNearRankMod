@@ -2,8 +2,8 @@
 {
     internal class PlayerInfo
     {
-        private string _rank;
-        private string _id;
+        private readonly string _rank;
+        private readonly string _id;
 
         internal PlayerInfo(string rank, string id)
         {

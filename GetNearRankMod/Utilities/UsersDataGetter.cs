@@ -18,7 +18,7 @@ namespace GetNearRankMod.Utilities
 
         public async Task GetYourId()
         {
-            var userId = await _userModel.GetUserInfo(CancellationToken.None);
+            UserInfo userId = await _userModel.GetUserInfo(CancellationToken.None);
             PluginConfig.Instance.YourId = userId.platformUserId;
 
             Logger.log.Debug("Your Id " + PluginConfig.Instance.YourId);
@@ -32,7 +32,7 @@ namespace GetNearRankMod.Utilities
             string yourBasicPlayerInfoEndpoint = $"https://scoresaber.com/api/player/{PluginConfig.Instance.YourId}/basic";
 
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(yourBasicPlayerInfoEndpoint);
+            HttpResponseMessage response = await client.GetAsync(yourBasicPlayerInfoEndpoint);
             string jsonString = await response.Content.ReadAsStringAsync();
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
@@ -130,7 +130,7 @@ namespace GetNearRankMod.Utilities
                 }
             }
 
-            foreach (var playerInfo in targetdPlayersInfo)
+            foreach (PlayerInfo playerInfo in targetdPlayersInfo)
             {
                 Logger.log.Info("rank-" + playerInfo.Rank + "-" + "id-" + playerInfo.Id);
             }
@@ -153,7 +153,7 @@ namespace GetNearRankMod.Utilities
 
                 dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonString);
 
-                foreach (var jsonScores in jsonDynamic["playerScores"])
+                foreach (dynamic jsonScores in jsonDynamic["playerScores"])
                 {
                     string songName = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songName"]).Replace("\"", "");
                     string mapHash = JsonConvert.SerializeObject(jsonScores["leaderboard"]["songHash"]).Replace("\"", "");
@@ -179,12 +179,12 @@ namespace GetNearRankMod.Utilities
             HashSet<PlayerInfo> playerInfoList = new HashSet<PlayerInfo>();
 
             HttpClient client = new HttpClient();
-            var response = await client.GetAsync(rankPagesEndpoint);
+            HttpResponseMessage response = await client.GetAsync(rankPagesEndpoint);
             string jsonStr = await response.Content.ReadAsStringAsync();
 
             dynamic jsonDynamic = JsonConvert.DeserializeObject(jsonStr);
 
-            foreach (var jd in jsonDynamic["players"])
+            foreach (dynamic jd in jsonDynamic["players"])
             {
                 string rank = string.Empty;
 

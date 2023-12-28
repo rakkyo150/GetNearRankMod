@@ -2,9 +2,9 @@
 {
     internal class MapData
     {
-        private string _songName;
-        private string _mapHash;
-        private string _difficulty;
+        private readonly string _songName;
+        private readonly string _mapHash;
+        private readonly string _difficulty;
 
         internal MapData(string songName, string mapHash, string difficulty)
         {
