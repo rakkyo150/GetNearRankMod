@@ -26,12 +26,12 @@ namespace GetNearRankMod.Button
 
         public void Initialize()
         {
-            MenuButtons.instance.RegisterButton(_menuButton);
+            MenuButtons.Instance.RegisterButton(_menuButton);
         }
 
         public void Dispose()
         {
-            MenuButtons.instance.UnregisterButton(_menuButton);
+            MenuButtons.Instance.UnregisterButton(_menuButton);
         }
 
         public async Task GeneratePlaylist()
